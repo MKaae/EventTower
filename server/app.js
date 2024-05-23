@@ -2,6 +2,9 @@ import "dotenv/config";
 import express from "express";
 const app = express();
 
+app.use(express.json());
+
+
 import path from "path";
 app.use(express.static(path.resolve("../client/dist")));
 
