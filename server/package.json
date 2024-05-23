@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "resetdatabase": "node ./database/connection.js delete"
+    "dev": "nodemon app.js",
+    "resetdatabase": "node ./database/connection.js delete",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
