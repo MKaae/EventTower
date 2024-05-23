@@ -39,7 +39,6 @@ if(isDeleteMode){
 
 }
 
-
 export default {
   users: db.collection("users"),
 };
