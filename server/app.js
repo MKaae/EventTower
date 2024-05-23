@@ -4,7 +4,6 @@ const app = express();
 
 app.use(express.json());
 
-
 import path from "path";
 app.use(express.static(path.resolve("../client/dist")));
 
@@ -27,6 +26,9 @@ app.get("/test", (req, res) => {
 
 import gamesRouter from "./routers/gamesRouter.js";
 app.use(gamesRouter);
+
+import leaderboardsRouter from "./routers/leaderboardsRouter.js";
+app.use(leaderboardsRouter);
 
 const PORT = process.env.PORT ?? 8080;
 app.listen(PORT, () => console.log("Server is running on:", PORT));
