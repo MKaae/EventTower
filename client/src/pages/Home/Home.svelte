@@ -3,7 +3,7 @@
   import GameCardAdmin from "../../components/GameCardAdmin.svelte";
   import { fetchGet, fetchPost } from "../../../util/api.js";
   import { onMount } from "svelte";
-  import bootstrap from "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
+  // import bootstrap from "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
   const user = { role: "admin" };
   let gamesList = [];
@@ -22,12 +22,12 @@
 
       // NOTHING HAPPENS AFTER FETCH
       // THEREFORE showToast IS ABOVE
-      showToast("Game succesfully created.");
+      // showToast("Game succesfully created.");
 
       const response = await fetchPost("http://localhost:8080/api/games", newGame);
     } catch (error) {
       console.error("Unable to save game", error);
-      showToast("Unable to save game.");
+      // showToast("Unable to save game.");
     }
   }
 
@@ -45,14 +45,14 @@
 
   let message;
 
-  function showToast(data) {
-    message = data;
-    console.log(message);
+  // function showToast(data) {
+  //   message = data;
+  //   console.log(message);
 
-    const toastElement = document.getElementById("liveToast");
-    const toast = new bootstrap.Toast(toastElement);
-    toast.show();
-  }
+  //   const toastElement = document.getElementById("liveToast");
+  //   const toast = new bootstrap.Toast(toastElement);
+  //   toast.show();
+  // }
 </script>
 
 <div class="container mt-5">
