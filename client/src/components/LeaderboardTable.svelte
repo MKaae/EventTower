@@ -2,8 +2,6 @@
   export let players;
 </script>
 
-<div id="tableData">Hello</div>
-
 <table class="table">
   <thead>
     <tr>
@@ -24,4 +22,3 @@
     {/each}
   </tbody>
 </table>
-
