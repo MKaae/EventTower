@@ -907,10 +907,10 @@
     },
   ];
 
-  // onMount(async () => {
-  //   leaderboardList = await fetchGet("https://dips-plus-plus.xk.io/leaderboard/global");
-  //   console.log(leaderboardList);
-  // });
+  onMount(async () => {
+    leaderboardList = await fetchGet("https://dips-plus-plus.xk.io/leaderboard/global");
+    console.log(leaderboardList);
+  });
 </script>
 
 <div class="container mt-5">
