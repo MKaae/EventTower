@@ -4,11 +4,11 @@
   import { fetchGet, fetchPost } from "../../../util/api.js";
   import { onMount } from "svelte";
 
-  const user = { role: "admin" };
-  let games = [];
+  const user = { role: "user" };
+  let gamesList = [];
 
   onMount(async () => {
-    games = await fetchGet("http://localhost:8080/api/games");
+    gamesList = await fetchGet("http://localhost:8080/api/games");
   });
 
   async function handleNewGame(imageURL, name, description) {
@@ -24,6 +24,18 @@
       console.error("Unable to save game", error);
     }
   }
+
+  let searchTerm;
+  let searchGameList = [];
+
+  $: if (searchTerm !== null) {
+    searchGameList = gamesList.filter((game) => {
+      return (
+        game.name?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+        game.description?.toLowerCase().includes(searchTerm?.toLowerCase())
+      );
+    });
+  }
 </script>
 
 <div class="container mt-5">
@@ -32,13 +44,14 @@
     Find active events under every game you can desire. Follow news, chat with like minded souls and and share
     strategies.
   </p>
+  <input bind:value={searchTerm} type="text" placeholder="Search..." />
 
-  <div class="row gx-5 gy-5">
+  <div class="row gx-5 gy-5 mt-3">
     {#if user.role === "admin"}
       <GameCardAdmin onNewGame={handleNewGame} />
     {/if}
 
-    {#each games as game}
+    {#each searchTerm ? searchGameList : gamesList as game}
       <GameCard {game} />
     {/each}
   </div>
