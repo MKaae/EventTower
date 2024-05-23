@@ -1,53 +1,17 @@
 <script>
   import GameCard from "../../components/GameCard.svelte";
   import GameCardAdmin from "../../components/GameCardAdmin.svelte";
+  import { fetchGet } from "../../../util/api.js";
+  import { onMount } from "svelte";
+  
+  const user = { role: "user" };
+  let games = [];
 
-  const user = { role: "admin" };
-  const games = [
-    {
-      imageURL: "../../../assets/trackmania.jpg",
-      name: "Trackmania",
-      description:
-        "Some quick example text to build on the card title and make up the bulk of the card's content.",
-      link: "/",
-    },
-    {
-      imageURL: "../../../assets/trackmania.jpg",
-      name: "Trackmania",
-      description:
-        "Some quick example text to build on the card title and make up the bulk of the card's content.",
-      link: "/",
-    },
-    {
-      imageURL: "../../../assets/trackmania.jpg",
-      name: "Trackmania",
-      description:
-        "Some quick example text to build on the card title and make up the bulk of the card's content.",
-      link: "/",
-    },
-    {
-      imageURL: "../../../assets/trackmania.jpg",
-      name: "Trackmania",
-      description:
-        "Some quick example text to build on the card title and make up the bulk of the card's content.",
-      link: "/",
-    },
-    {
-      imageURL: "../../../assets/trackmania.jpg",
-      name: "Trackmania",
-      description:
-        "Some quick example text to build on the card title and make up the bulk of the card's content.",
-      link: "/",
-    },
-    {
-      imageURL: "../../../assets/trackmania.jpg",
-      name: "Trackmania",
-      description:
-        "Some quick example text to build on the card title and make up the bulk of the card's content.",
-      link: "/",
-    },
-    
-  ];
+  onMount(async () => {
+    games = await fetchGet("http://localhost:8080/api/games");
+    console.log(games);
+  });
+
 </script>
 
 <div class="container mt-5">
