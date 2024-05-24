@@ -1,6 +1,7 @@
 <script>
   import Home from "./pages/Home/Home.svelte";
   import Leaderboard from "./pages/Leaderboard/Leaderboard.svelte";
+  import PrivateRoute from "./components/PrivateRoute.svelte";
   // @ts-ignore
   import { Router, Link, Route } from "svelte-navigator"; 
 
@@ -29,6 +30,7 @@
         <Home /> 
       </Route>
       <!-- <Route path="/leaderboard/:id"> <Leaderboard /> </Route> -->
+      <!-- <PrivateRoute path="/chatroom"></PrivateRoute> -->
     </div>
   </div>
 </Router>
