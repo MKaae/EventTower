@@ -55,9 +55,45 @@ if (isDeleteMode) {
           link: "/",
         },
       ];
-
       const gamesResult = await gamesCollection.insertMany(dummyGames);
       console.log(`${gamesResult.insertedCount} new dummy games inserted`);
+
+      /* Add events to development database */
+      const eventsCollection = db.collection("events");
+      await gamesCollection.deleteMany({});
+
+      const dummyEvents = [
+        {
+          imageURL: "https://blog.trackmania.com//uploads/2023/03/KEYART_SPRING_2023_LOGOTEXT.jpg",
+          name: "Trackmania Spring 2023",
+          description:
+            "The Spring 2023 campaign will be the 12th seasonal campaign available in Trackmania from April 1st. 25",
+        },
+
+        {
+          imageURL: "https://blog.trackmania.com//uploads/2023/03/KEYART_SPRING_2023_LOGOTEXT.jpg",
+          name: "Trackmania Spring 2023",
+          description:
+            "The Spring 2023 campaign will be the 12th seasonal campaign available in Trackmania from April 1st. 25",
+        },
+
+        {
+          imageURL: "https://blog.trackmania.com//uploads/2023/03/KEYART_SPRING_2023_LOGOTEXT.jpg",
+          name: "Trackmania Spring 2023",
+          description:
+            "The Spring 2023 campaign will be the 12th seasonal campaign available in Trackmania from April 1st. 25",
+        },
+
+        {
+          imageURL: "https://blog.trackmania.com//uploads/2023/03/KEYART_SPRING_2023_LOGOTEXT.jpg",
+          name: "Trackmania Spring 2023",
+          description:
+            "The Spring 2023 campaign will be the 12th seasonal campaign available in Trackmania from April 1st. 25",
+        },
+      ];
+
+      const eventsResult = await eventsCollection.insertMany(dummyEvents);
+      console.log(`${eventsResult.insertedCount} new dummy events inserted`);
     } catch (error) {
       console.error("An error occurred while resetting database:", error);
     } finally {
@@ -71,4 +107,5 @@ if (isDeleteMode) {
 export default {
   users: db.collection("users"),
   games: db.collection("games"),
+  events: db.collection("events"),
 };

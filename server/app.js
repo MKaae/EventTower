@@ -27,6 +27,9 @@ app.get("/test", (req, res) => {
 import gamesRouter from "./routers/gamesRouter.js";
 app.use(gamesRouter);
 
+import eventsRouter from "./routers/eventsRouter.js";
+app.use(eventsRouter);
+
 import leaderboardsRouter from "./routers/leaderboardsRouter.js";
 app.use(leaderboardsRouter);
 
