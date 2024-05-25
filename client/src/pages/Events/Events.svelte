@@ -9,6 +9,7 @@
 
   onMount(async () => {
     eventsList = await fetchGet("http://localhost:8080/api/events");
+    console.log(eventsList);
   });
 
   async function handleNewEvent(imageURL, game, name, description) {

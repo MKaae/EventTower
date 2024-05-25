@@ -3,8 +3,13 @@
   import Events from "./pages/Events/Events.svelte";
   import Leaderboard from "./pages/Leaderboard/Leaderboard.svelte";
   import PrivateRoute from "./components/PrivateRoute.svelte";
+  import Event from "./pages/Event/Event.svelte";
   // @ts-ignore
   import { Router, Link, Route } from "svelte-navigator";
+
+  // Refactor to take location into account
+  let onEventsPage = true;
+  let eventId = 1;
 </script>
 
 <Router>
@@ -19,18 +24,26 @@
       <hr />
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-          <Link to="/" class="nav-link active" aria-current="page">
+          <Link to="/" class="nav-link active">
             <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
               <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
             </svg>
             Home
           </Link>
-          <Link to="/events" class=" mt-3 nav-link active" aria-current="page">
+          <Link to="/events" class=" mt-3 nav-link active">
             <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
               <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
             </svg>
             Events
           </Link>
+          {#if onEventsPage}
+            <Link to={`events/${eventId}`} class=" mt-3 nav-link active">
+              <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+                <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
+              </svg>
+              Event
+            </Link>
+          {/if}
         </li>
       </ul>
     </div>
@@ -41,6 +54,9 @@
       </Route>
       <Route path="/events">
         <Events />
+      </Route>
+      <Route path="/events/:id">
+        <Event />
       </Route>
       <!-- <Route path="/leaderboard/:id"> <Leaderboard /> </Route> -->
       <!-- <PrivateRoute path="/chatroom"></PrivateRoute> -->
