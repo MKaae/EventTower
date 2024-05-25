@@ -55,9 +55,105 @@ if (isDeleteMode) {
           link: "/",
         },
       ];
-
       const gamesResult = await gamesCollection.insertMany(dummyGames);
       console.log(`${gamesResult.insertedCount} new dummy games inserted`);
+
+      /* Add events to development database */
+      const eventsCollection = db.collection("events");
+      await eventsCollection.deleteMany({});
+
+      const dummyEvents = [
+        {
+          imageURL: "https://blog.trackmania.com//uploads/2023/03/KEYART_SPRING_2023_LOGOTEXT.jpg",
+          game: "trackmania",
+          name: "Trackmania Spring 2023",
+          description:
+            "The Spring 2023 campaign will be the 12th seasonal campaign available in Trackmania from April 1st. 25",
+          news: [
+            {
+              title: "Trackmania World Cup Announced for August",
+              body: "The annual Trackmania World Cup has been officially announced for August this year. Top players from around the globe will compete in a series of intense races, showcasing their skills and strategies. The event promises to bring thrilling moments and exciting competitions for all Trackmania fans.",
+            },
+            {
+              title: "New Trackmania Update Introduces Customizable Skins",
+              body: "Trackmania developers have rolled out a new update that allows players to create and customize their own car skins. This highly anticipated feature lets players express their creativity and stand out on the tracks. The update also includes several bug fixes and performance improvements.",
+            },
+            {
+              title: "Trackmania Community Hosts Charity Race Event",
+              body: "The Trackmania community is coming together for a charity race event to raise funds for local children's hospitals. The event will feature popular Trackmania streamers and content creators, who will race live while encouraging viewers to donate. All proceeds from the event will go towards supporting medical care for children in need.",
+            },
+          ],
+        },
+
+        {
+          imageURL: "https://blog.trackmania.com//uploads/2023/03/KEYART_SPRING_2023_LOGOTEXT.jpg",
+          game: "trackmania",
+          name: "Trackmania Spring 2023",
+          description:
+            "The Spring 2023 campaign will be the 12th seasonal campaign available in Trackmania from April 1st. 25",
+          news: [
+            {
+              title: "Trackmania World Cup Announced for August",
+              body: "The annual Trackmania World Cup has been officially announced for August this year. Top players from around the globe will compete in a series of intense races, showcasing their skills and strategies. The event promises to bring thrilling moments and exciting competitions for all Trackmania fans.",
+            },
+            {
+              title: "New Trackmania Update Introduces Customizable Skins",
+              body: "Trackmania developers have rolled out a new update that allows players to create and customize their own car skins. This highly anticipated feature lets players express their creativity and stand out on the tracks. The update also includes several bug fixes and performance improvements.",
+            },
+            {
+              title: "Trackmania Community Hosts Charity Race Event",
+              body: "The Trackmania community is coming together for a charity race event to raise funds for local children's hospitals. The event will feature popular Trackmania streamers and content creators, who will race live while encouraging viewers to donate. All proceeds from the event will go towards supporting medical care for children in need.",
+            },
+          ],
+        },
+
+        {
+          imageURL: "https://blog.trackmania.com//uploads/2023/03/KEYART_SPRING_2023_LOGOTEXT.jpg",
+          game: "trackmania",
+          name: "Trackmania Spring 2023",
+          description:
+            "The Spring 2023 campaign will be the 12th seasonal campaign available in Trackmania from April 1st. 25",
+          news: [
+            {
+              title: "Trackmania World Cup Announced for August",
+              body: "The annual Trackmania World Cup has been officially announced for August this year. Top players from around the globe will compete in a series of intense races, showcasing their skills and strategies. The event promises to bring thrilling moments and exciting competitions for all Trackmania fans.",
+            },
+            {
+              title: "New Trackmania Update Introduces Customizable Skins",
+              body: "Trackmania developers have rolled out a new update that allows players to create and customize their own car skins. This highly anticipated feature lets players express their creativity and stand out on the tracks. The update also includes several bug fixes and performance improvements.",
+            },
+            {
+              title: "Trackmania Community Hosts Charity Race Event",
+              body: "The Trackmania community is coming together for a charity race event to raise funds for local children's hospitals. The event will feature popular Trackmania streamers and content creators, who will race live while encouraging viewers to donate. All proceeds from the event will go towards supporting medical care for children in need.",
+            },
+          ],
+        },
+
+        {
+          imageURL: "https://blog.trackmania.com//uploads/2023/03/KEYART_SPRING_2023_LOGOTEXT.jpg",
+          game: "trackmania",
+          name: "Trackmania Spring 2023",
+          description:
+            "The Spring 2023 campaign will be the 12th seasonal campaign available in Trackmania from April 1st. 25",
+          news: [
+            {
+              title: "Trackmania World Cup Announced for August",
+              body: "The annual Trackmania World Cup has been officially announced for August this year. Top players from around the globe will compete in a series of intense races, showcasing their skills and strategies. The event promises to bring thrilling moments and exciting competitions for all Trackmania fans.",
+            },
+            {
+              title: "New Trackmania Update Introduces Customizable Skins",
+              body: "Trackmania developers have rolled out a new update that allows players to create and customize their own car skins. This highly anticipated feature lets players express their creativity and stand out on the tracks. The update also includes several bug fixes and performance improvements.",
+            },
+            {
+              title: "Trackmania Community Hosts Charity Race Event",
+              body: "The Trackmania community is coming together for a charity race event to raise funds for local children's hospitals. The event will feature popular Trackmania streamers and content creators, who will race live while encouraging viewers to donate. All proceeds from the event will go towards supporting medical care for children in need.",
+            },
+          ],
+        },
+      ];
+
+      const eventsResult = await eventsCollection.insertMany(dummyEvents);
+      console.log(`${eventsResult.insertedCount} new dummy events inserted`);
     } catch (error) {
       console.error("An error occurred while resetting database:", error);
     } finally {
@@ -71,4 +167,5 @@ if (isDeleteMode) {
 export default {
   users: db.collection("users"),
   games: db.collection("games"),
+  events: db.collection("events"),
 };
