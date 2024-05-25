@@ -1,5 +1,6 @@
 <script>
   import Home from "./pages/Home/Home.svelte";
+  import Events from "./pages/Events/Events.svelte";
   import Leaderboard from "./pages/Leaderboard/Leaderboard.svelte";
   import PrivateRoute from "./components/PrivateRoute.svelte";
   // @ts-ignore
@@ -21,6 +22,12 @@
               </svg>
               Home
           </Link>
+          <Link to="/events" class="nav-link active" aria-current="page">
+            <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+              <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor"/>
+            </svg>
+            Events
+        </Link>
         </li>
       </ul>
     </div>
@@ -28,6 +35,9 @@
       <Route path="/"> 
         <!-- Text components here with commenting in and out -->
         <Home /> 
+      </Route>
+      <Route path="/events">
+        <Events />
       </Route>
       <!-- <Route path="/leaderboard/:id"> <Leaderboard /> </Route> -->
       <!-- <PrivateRoute path="/chatroom"></PrivateRoute> -->
