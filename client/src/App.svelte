@@ -10,16 +10,11 @@
   import { Router, Link, Route } from "svelte-navigator";
   import { eventPage } from "./stores/generalStore.js";
 
-  // Update to store
-
   let isEventPage = false;
-
-  // Subscribe to changes in the eventPage store
   const unsubscribe = eventPage.subscribe((value) => {
     isEventPage = value;
   });
 
-  // Don't forget to unsubscribe when the component is destroyed
   onDestroy(() => {
     unsubscribe();
   });
