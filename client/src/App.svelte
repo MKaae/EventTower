@@ -1,4 +1,6 @@
 <script>
+  import { onDestroy } from "svelte";
+
   import Home from "./pages/Home/Home.svelte";
   import Events from "./pages/Events/Events.svelte";
   import Leaderboard from "./pages/Leaderboard/Leaderboard.svelte";
@@ -6,9 +8,21 @@
   import Event from "./pages/Event/Event.svelte";
   // @ts-ignore
   import { Router, Link, Route } from "svelte-navigator";
+  import { eventPage } from "./stores/generalStore.js";
 
-  // Refactor to take location into account
-  let onEventsPage = true;
+  // Update to store
+
+  let isEventPage = false;
+
+  // Subscribe to changes in the eventPage store
+  const unsubscribe = eventPage.subscribe((value) => {
+    isEventPage = value;
+  });
+
+  // Don't forget to unsubscribe when the component is destroyed
+  onDestroy(() => {
+    unsubscribe();
+  });
   let eventId = 1;
 </script>
 
@@ -36,7 +50,7 @@
             </svg>
             Events
           </Link>
-          {#if onEventsPage}
+          {#if isEventPage}
             <Link to={`events/${eventId}`} class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
                 <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />

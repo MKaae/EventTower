@@ -16,12 +16,13 @@ router.get("/api/events", async (req, res) => {
 });
 
 router.get("/api/events/:id", async (req, res) => {
+  
+  // Add error handling here
   const eventId = req.params.id;
   const id = new ObjectId(eventId);
 
   try {
     const event = await db.events.findOne({ _id: id });
-    console.log(event);
 
     if (!event) {
       return res.status(404).send({ error: "Event not found" });
