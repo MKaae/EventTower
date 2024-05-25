@@ -17,10 +17,10 @@
     <div class="card-body d-flex flex-column justify-content-between">
       <h5 class="card-title">Create new game</h5>
       <p class="card-text">
-        This placeholder card shows where your new game will appear. Click "Create a New Game" get started.
+        This placeholder card shows where your new event will appear. Click "Create a New Event" get started.
       </p>
       <a href="/" class="btn btn-primary align-self-end" data-bs-toggle="modal" data-bs-target="#exampleModal"
-        >Create new game</a
+        >Create new event</a
       >
     </div>
   </div>
@@ -42,8 +42,8 @@
       </div>
       <div class="modal-body d-flex flex-column">
         <p>
-          Please fill in the details below to add a new game to our collection. Provide the image URL, name,
-          and a brief description to get started.
+          Please fill in the details below to add a new event to our collection. Provide the image URL, game,
+          name, and a brief description to get started.
         </p>
         <input bind:value={imageURL} class="m-1" type="text" placeholder="Add image URL" />
         <input bind:value={game} class="m-1" type="text" placeholder="Add game name" />
@@ -56,7 +56,7 @@
           on:click={() => onNewGame(imageURL, name, description)}
           type="button"
           class="btn btn-primary"
-          data-bs-dismiss="modal">Create game</button
+          data-bs-dismiss="modal">Create event</button
         >
       </div>
     </div>

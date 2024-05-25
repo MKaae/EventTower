@@ -30,7 +30,12 @@
 </script>
 
 <div class="container mt-5">
-  <h1>Events</h1>
+  <h1>Discover Exciting Events Across All Your Favorite Games</h1>
+  <p>
+    Explore a diverse range of active events for every game you love. Stay updated with the latest news,
+    connect with fellow enthusiasts, and share strategies to master your gameplay. Join the community and
+    enhance your gaming experience!
+  </p>
   <div class="row gx-5 gy-5 mt-3">
     {#if user.role === "admin"}
       <EventCardAdmin onNewGame={handleNewEvent} />
