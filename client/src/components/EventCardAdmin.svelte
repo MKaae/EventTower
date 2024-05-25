@@ -2,6 +2,7 @@
   export let onNewGame;
 
   let imageURL;
+  let game;
   let name;
   let description;
 </script>
@@ -45,7 +46,8 @@
           and a brief description to get started.
         </p>
         <input bind:value={imageURL} class="m-1" type="text" placeholder="Add image URL" />
-        <input bind:value={name} class="m-1" type="text" placeholder="Add name" />
+        <input bind:value={game} class="m-1" type="text" placeholder="Add game name" />
+        <input bind:value={name} class="m-1" type="text" placeholder="Add event name" />
         <input bind:value={description} class="m-1" type="text" placeholder="Add description" />
       </div>
       <div class="modal-footer">

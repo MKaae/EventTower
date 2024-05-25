@@ -60,7 +60,7 @@ if (isDeleteMode) {
 
       /* Add events to development database */
       const eventsCollection = db.collection("events");
-      await gamesCollection.deleteMany({});
+      await eventsCollection.deleteMany({});
 
       const dummyEvents = [
         {

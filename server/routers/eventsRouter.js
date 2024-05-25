@@ -13,4 +13,14 @@ router.get("/api/events", async (req, res) => {
   }
 });
 
+router.post("/api/events", async (req, res) => {
+  const newEvent = req.body;
+
+  try {
+    db.events.insertOne(newEvent);
+  } catch (error) {
+    console.error("Unable to save game", error);
+  }
+});
+
 export default router;
