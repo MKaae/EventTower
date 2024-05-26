@@ -18,6 +18,9 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
-    "svelte-navigator": "^3.2.2"
+    "svelte-forms-lib": "^2.0.1",
+    "svelte-french-toast": "^1.2.0",
+    "svelte-navigator": "^3.2.2",
+    "yup": "^1.4.0"
   }
 }

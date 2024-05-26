@@ -3,6 +3,7 @@
   import { fetchGet, fetchPost } from "../../../util/api";
   import EventCard from "../../components/EventCard.svelte";
   import EventCardAdmin from "../../components/EventCardAdmin.svelte";
+  import toast, {Toaster} from 'svelte-french-toast';
 
   const user = { role: "admin" };
   let eventsList = [];
@@ -20,10 +21,15 @@
         description: description,
       };
 
-      // ADD TOAST
+      toast.success("Event succesfully created.", {
+            position: "bottom-center"
+      });
+
       const response = await fetchPost("http://localhost:8080/api/events", newEvent);
     } catch (error) {
-      // ERROR TOAST
+      toast.error("Error creating event.", {
+            position: "bottom-center"
+      });
       console.error(error);
     }
   }
@@ -45,4 +51,5 @@
       <EventCard {event} />
     {/each}
   </div>
+  <Toaster/>
 </div>

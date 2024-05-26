@@ -3,6 +3,7 @@
   import GameCard from "../../components/GameCard.svelte";
   import { fetchGet, fetchPost } from "../../../util/api.js";
   import GameCardAdmin from "../../components/GameCardAdmin.svelte";
+  import toast, {Toaster} from 'svelte-french-toast';
 
   const user = { role: "admin" };
   let gamesList = [];
@@ -19,11 +20,15 @@
         description: description,
       };
 
-      // ADD TOAST
+      toast.success("Success creating new game.", {
+            position: "bottom-center"
+      });
 
       const response = await fetchPost("http://localhost:8080/api/games", newGame);
     } catch (error) {
-      // ERROR TOAST
+      toast.error("Error creating new game.", {
+            position: "bottom-center"
+      });
       console.error("Unable to save game", error);
     }
   }
@@ -59,4 +64,5 @@
       <GameCard {game} />
     {/each}
   </div>
+  <Toaster/>
 </div>
