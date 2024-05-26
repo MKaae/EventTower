@@ -115,7 +115,7 @@
   });
 </script>
 
-<div class="m-4">
+<div>
     <div 
     class="flip2 position-absolute flex-column p-4 border border-3 border-grey rounded shadow"
     style="transform: rotateY({showSignUp ? '-180deg' : '0deg'})"
@@ -125,7 +125,7 @@
                 <h5>Sign up to eventtower</h5>
             </div>
 
-            <div data-mdb-input-init class="form-outline mb-4">
+            <div data-mdb-input-init class="form-outline mb-2">
             <label class="form-label" for="username">Username</label>
             <input 
             type="text" 
@@ -141,7 +141,7 @@
             {/if}
             </div>
 
-            <div data-mdb-input-init class="form-outline mb-4">
+            <div data-mdb-input-init class="form-outline mb-2">
             <label class="form-label" for="email">Email address</label>
             <input 
             type="email" 
@@ -157,7 +157,7 @@
             {/if}
             </div>
         
-            <div data-mdb-input-init class="form-outline mb-4">
+            <div data-mdb-input-init class="form-outline mb-2">
             <label class="form-label" for="password">Password</label>
             <input 
             type="password" 
@@ -173,7 +173,7 @@
             {/if}
             </div>
             
-            <div data-mdb-input-init class="form-outline mb-4">
+            <div data-mdb-input-init class="form-outline mb-2">
             <label class="form-label" for="passwordconfirm">Password</label>
             <input 
             type="password" 
@@ -193,7 +193,7 @@
                 <button  
                 type="submit" 
                 data-mdb-button-init data-mdb-ripple-init 
-                class="btn btn-primary btn-block mb-4">
+                class="btn btn-primary btn-block mb-2">
                 Sign in
                 </button>
             </div>
@@ -219,7 +219,7 @@
                 <h5>Login to eventtower</h5>
             </div>
 
-            <div data-mdb-input-init class="form-outline mb-4">
+            <div data-mdb-input-init class="form-outline mb-2">
             <label class="form-label" for="email">Email address</label>
             <input 
             type="email" 
@@ -235,7 +235,7 @@
             {/if}
             </div>
         
-            <div data-mdb-input-init class="form-outline mb-4">
+            <div data-mdb-input-init class="form-outline mb-2">
             <label class="form-label" for="password">Password</label>
             <input 
             type="password" 
@@ -255,7 +255,7 @@
                 <button  
                 type="submit" 
                 data-mdb-button-init data-mdb-ripple-init 
-                class="btn btn-primary btn-block mb-4" 
+                class="btn btn-primary btn-block mb-2" 
                 >Sign in</button>
             </div>
         </form>

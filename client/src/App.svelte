@@ -32,8 +32,6 @@
     }
   };
   import Event from "./pages/Event/Event.svelte";
-  // @ts-ignore
-  import { Router, Link, Route } from "svelte-navigator";
   import { eventStore } from "./stores/generalStore.js";
   import { locationStore } from "./stores/locationStore";
 
@@ -75,14 +73,12 @@
             </svg>
             Events
           </Link>
-          {#if $user}
-            <a href="/" on:click|preventDefault={logout} class="mt-3 nav-link active" aria-current="page">
-              <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
-                <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
-              </svg>
-              Logout
-            </a>
-
+          <Link to="/auth" class=" mt-3 nav-link active">
+            <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+              <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
+            </svg>
+            Login
+          </Link>
           {#if $locationStore.pathname.includes("/events/")}
             <Link to={`events/${eventId}`} class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
@@ -90,18 +86,29 @@
               </svg>
               Event
             </Link>
-
+          {/if}
+          {#if $user}
+            <a href="/" on:click|preventDefault={logout} class="mt-3 nav-link active" aria-current="page">
+              <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+                <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
+              </svg>
+              Logout
+            </a>
           {/if}
         </li>
       </ul>
     </div>
-    <div class="d-flex flex flex-column justify-content-center">
+    <div class="d-flex flex flex-column justify-content-center w-100">
       <Route path="/">
         <!-- Text components here with commenting in and out -->
-        <Authenticate />
       </Route>
       <Route path="/events">
         <Events />
+      </Route>
+      <Route path="/auth">
+        <div class="d-flex flex-column w-50 align-items-center">        
+          <Authenticate />
+        </div>
       </Route>
       <Route path="/events/:id">
         <Event />
