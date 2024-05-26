@@ -1,24 +1,41 @@
 <script>
   import { onMount, setContext } from "svelte";
   import { useParams } from "svelte-navigator";
-  import { fetchGet } from "../../../util/api.js";
+  import { fetchGet, fetchPost } from "../../../util/api.js";
   import { eventPage } from "../../stores/generalStore.js";
   import { eventStore } from "../../stores/generalStore.js";
   import { locationStore } from "../../stores/locationStore.js";
-  import NewsCard from "../../components/NewsCard.svelte";
+  import ArticleCard from "../../components/ArticleCard.svelte";
+  import ArticleCardAdmin from "../../components/ArticleCardAdmin.svelte";
 
   const params = useParams();
   const eventId = $params.id;
   let event = {};
-  let newsList = [];
+  let articleList = [];
+
+  let user = { role: "admin" };
 
   onMount(async () => {
     locationStore.update();
     event = await fetchGet(`http://localhost:8080/api/events/${eventId}`);
     eventPage.set(true);
     eventStore.set({ id: event._id });
-    newsList = event.news;
+    articleList = event.articles;
   });
+
+  async function handleNewArticle(title, author, body) {
+    const newEvent = {
+      title: title,
+      author: author,
+      body: body,
+    };
+
+    try {
+      const response = await fetchPost(`http://localhost:8080/api/events/${eventId}/article`, newEvent);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 </script>
 
 <div class="container-fluid mt-5 d-flex flex-column justify-content-center align-items-center">
@@ -34,8 +51,11 @@
   </div>
   <div class="m-5"><h2>News</h2></div>
   <div>
-    {#each newsList as news}
-      <NewsCard {news} />
+    {#if user.role === "admin"}
+      <ArticleCardAdmin onNewArticle={handleNewArticle} />
+    {/if}
+    {#each articleList as article}
+      <ArticleCard {article} />
     {/each}
   </div>
 </div>

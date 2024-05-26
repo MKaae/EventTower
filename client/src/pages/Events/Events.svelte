@@ -12,7 +12,6 @@
   onMount(async () => {
     eventsList = await fetchGet("http://localhost:8080/api/events");
     locationStore.update();
-    console.log($locationStore);
   });
 
   async function handleNewEvent(imageURL, game, name, description) {

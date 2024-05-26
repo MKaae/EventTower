@@ -29,13 +29,13 @@ router.get("/api/events/:id", async (req, res) => {
     const event = await db.events.findOne({ _id: id });
 
     if (!event) {
-      return res.status(404).send({ error: "Event not found" });
+      return res.status(404).send({ error: "Event not found." });
     }
 
     res.send({ data: event });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: "Internal Server Error" });
+    res.status(500).send({ error: "Internal Server Error." });
   }
 });
 
@@ -44,9 +44,31 @@ router.post("/api/events", async (req, res) => {
 
   try {
     db.events.insertOne(newEvent);
+    s;
   } catch (error) {
-    console.error("Unable to save game", error);
-    res.status(500).send({ error: "Internal Server Error" });
+    console.error("Unable to save event", error);
+    res.status(500).send({ error: "Internal Server Error." });
+  }
+});
+
+router.post("/api/events/:id/article", async (req, res) => {
+  const eventId = req.params.id;
+  const newArticle = req.body;
+
+  try {
+    const id = new ObjectId(eventId);
+    const event = await db.events.findOne({ _id: id });
+
+    if (!event) {
+      return res.status(404).send({ data: "Event not found." });
+    }
+
+    event.articles.push(newArticle);
+    await db.events.updateOne({ _id: id }, { $set: { articles: event.articles } });
+    res.status(200).send({ data: "Event updated succesfully." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ data: "Internal Server Error." });
   }
 });
 

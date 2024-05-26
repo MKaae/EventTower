@@ -13,7 +13,6 @@
 
   onMount(async () => {
     locationStore.update();
-    console.log($locationStore);
   });
 
   let eventId;
