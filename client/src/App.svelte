@@ -1,4 +1,6 @@
 <script>
+  import { onDestroy, onMount } from "svelte";
+
   import Home from "./pages/Home/Home.svelte";
   import Events from "./pages/Events/Events.svelte";
   import Leaderboard from "./pages/Leaderboard/Leaderboard.svelte";
@@ -29,6 +31,24 @@
       });
     }
   };
+  import Event from "./pages/Event/Event.svelte";
+  // @ts-ignore
+  import { Router, Link, Route } from "svelte-navigator";
+  import { eventStore } from "./stores/generalStore.js";
+  import { locationStore } from "./stores/locationStore";
+
+  onMount(async () => {
+    locationStore.update();
+  });
+
+  let eventId;
+  const unsubscribe = eventStore.subscribe((event) => {
+    eventId = event.id;
+  });
+
+  onDestroy(() => {
+    unsubscribe();
+  });
 </script>
 
 <Router>
@@ -43,13 +63,13 @@
       <hr />
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-          <Link to="/" class="nav-link active" aria-current="page">
+          <Link to="/" class="nav-link active">
             <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
               <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
             </svg>
             Home
           </Link>
-          <Link to="/events" class=" mt-3 nav-link active" aria-current="page">
+          <Link to="/events" class=" mt-3 nav-link active">
             <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
               <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
             </svg>
@@ -62,6 +82,15 @@
               </svg>
               Logout
             </a>
+
+          {#if $locationStore.pathname.includes("/events/")}
+            <Link to={`events/${eventId}`} class=" mt-3 nav-link active">
+              <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+                <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
+              </svg>
+              Event
+            </Link>
+
           {/if}
         </li>
       </ul>
@@ -73,6 +102,9 @@
       </Route>
       <Route path="/events">
         <Events />
+      </Route>
+      <Route path="/events/:id">
+        <Event />
       </Route>
       <!-- <Route path="/leaderboard/:id"> <Leaderboard /> </Route> -->
       <!-- <PrivateRoute path="/chatroom"></PrivateRoute> -->

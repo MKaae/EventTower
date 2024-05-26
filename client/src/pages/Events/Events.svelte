@@ -3,13 +3,19 @@
   import { fetchGet, fetchPost } from "../../../util/api";
   import EventCard from "../../components/EventCard.svelte";
   import EventCardAdmin from "../../components/EventCardAdmin.svelte";
+
   import toast, {Toaster} from 'svelte-french-toast';
+
+  import { eventPage } from "../../stores/generalStore";
+  import { locationStore } from "../../stores/locationStore.js";
+
 
   const user = { role: "admin" };
   let eventsList = [];
 
   onMount(async () => {
     eventsList = await fetchGet("http://localhost:8080/api/events");
+    locationStore.update();
   });
 
   async function handleNewEvent(imageURL, game, name, description) {

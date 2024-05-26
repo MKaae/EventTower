@@ -1,4 +1,6 @@
 <script>
+  import { Link } from "svelte-navigator";
+
   export let event;
 </script>
 
@@ -8,7 +10,7 @@
     <div class="card-body d-flex flex-column justify-content-between">
       <h5 class="card-title">{event?.name}</h5>
       <p class="card-text">{event?.description}</p>
-      <a href="/" class="btn btn-primary align-self-end">See event</a>
+      <Link to={`/events/${event._id}`} class="btn btn-primary align-self-end">See event</Link>
     </div>
   </div>
 </div>
