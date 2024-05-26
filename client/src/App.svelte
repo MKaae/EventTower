@@ -5,6 +5,32 @@
   import Events from "./pages/Events/Events.svelte";
   import Leaderboard from "./pages/Leaderboard/Leaderboard.svelte";
   import PrivateRoute from "./components/PrivateRoute.svelte";
+  import Authenticate from "./pages/Authenticate/Authenticate.svelte";
+  // @ts-ignore
+  import { Router, Link, Route } from "svelte-navigator";
+  import {user} from "../src/stores/generalStore.js";
+  import { fetchPost } from "../util/api";
+  import toast, {Toaster} from 'svelte-french-toast';
+
+  const logout = async () => {
+    const userBody = { user: $user};
+    if($user != null){
+      try{
+        await fetchPost("http://localhost:8080/api/logout", userBody);
+      } catch (error) {
+        toast.error("Error logging out try again.", {
+          position: "bottom-center"
+        });
+      }
+    } else {
+      user.set(null);
+    }
+    if($user == null){
+      toast.success("Logged out.", {
+            position: "bottom-center"
+      });
+    }
+  };
   import Event from "./pages/Event/Event.svelte";
   // @ts-ignore
   import { Router, Link, Route } from "svelte-navigator";
@@ -49,6 +75,14 @@
             </svg>
             Events
           </Link>
+          {#if $user}
+            <a href="/" on:click|preventDefault={logout} class="mt-3 nav-link active" aria-current="page">
+              <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+                <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
+              </svg>
+              Logout
+            </a>
+
           {#if $locationStore.pathname.includes("/events/")}
             <Link to={`events/${eventId}`} class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
@@ -56,14 +90,15 @@
               </svg>
               Event
             </Link>
+
           {/if}
         </li>
       </ul>
     </div>
-    <div class="d-flex flex flex-column">
+    <div class="d-flex flex flex-column justify-content-center">
       <Route path="/">
         <!-- Text components here with commenting in and out -->
-        <Home />
+        <Authenticate />
       </Route>
       <Route path="/events">
         <Events />
@@ -76,3 +111,4 @@
     </div>
   </div>
 </Router>
+<Toaster />
