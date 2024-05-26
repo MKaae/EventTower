@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
 
   import Home from "./pages/Home/Home.svelte";
   import Events from "./pages/Events/Events.svelte";
@@ -8,17 +8,22 @@
   import Event from "./pages/Event/Event.svelte";
   // @ts-ignore
   import { Router, Link, Route } from "svelte-navigator";
-  import { eventPage } from "./stores/generalStore.js";
+  import { eventStore } from "./stores/generalStore.js";
+  import { locationStore } from "./stores/locationStore";
 
-  let isEventPage = false;
-  const unsubscribe = eventPage.subscribe((value) => {
-    isEventPage = value;
+  onMount(async () => {
+    locationStore.update();
+    console.log($locationStore);
+  });
+
+  let eventId;
+  const unsubscribe = eventStore.subscribe((event) => {
+    eventId = event.id;
   });
 
   onDestroy(() => {
     unsubscribe();
   });
-  let eventId = 1;
 </script>
 
 <Router>
@@ -45,7 +50,7 @@
             </svg>
             Events
           </Link>
-          {#if isEventPage}
+          {#if $locationStore.pathname.includes("/events/")}
             <Link to={`events/${eventId}`} class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
                 <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
