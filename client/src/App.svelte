@@ -78,7 +78,7 @@
       </Route>
       <Route path="/events/:id">
         <Event />
-      </Route>'
+      </Route>
       <Route path="/events/:id/general">
         <General />
       </Route>
