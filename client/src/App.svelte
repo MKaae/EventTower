@@ -6,6 +6,7 @@
   import Leaderboard from "./pages/Leaderboard/Leaderboard.svelte";
   import PrivateRoute from "./components/PrivateRoute.svelte";
   import Authenticate from "./pages/Authenticate/Authenticate.svelte";
+  import Stats from "./pages/Stats/Stats.svelte";
   // @ts-ignore
   import { Router, Link, Route } from "svelte-navigator";
   import {user} from "../src/stores/generalStore.js";
@@ -100,7 +101,7 @@
     </div>
     <div class="d-flex flex flex-column justify-content-center w-100">
       <Route path="/">
-        <!-- Text components here with commenting in and out -->
+        <Stats/>
       </Route>
       <Route path="/events">
         <Events />

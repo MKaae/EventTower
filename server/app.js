@@ -44,6 +44,9 @@ app.use(eventsRouter);
 import leaderboardsRouter from "./routers/leaderboardsRouter.js";
 app.use(leaderboardsRouter);
 
+import statsRouter from "./routers/statsRouter.js";
+app.use(statsRouter);
+
 
 const PORT = process.env.PORT ?? 8080;
 app.listen(PORT, () => console.log("Server is running on:", PORT));
