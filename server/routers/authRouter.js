@@ -23,11 +23,11 @@ router.post("/api/signup", async (req, res) => {
     const email = req.body.email;
     const username = req.body.username;
     
-    const checkEmailUnique = null;
-    const checkUsernameUnique = null;
+    let checkEmailUnique = null;
+    let checkUsernameUnique = null;
     try{
-        checkEmailUnique = await db.dummyUsers.findOne({ email: email });
-        checkUsernameUnique = await db.dummyUsers.findOne({ username: username });
+        checkEmailUnique = await db.users.findOne({ email: email });
+        checkUsernameUnique = await db.users.findOne({ username: username });
     } catch (error ){
         console.log(error);
     }
@@ -48,8 +48,7 @@ router.post("/api/signup", async (req, res) => {
             password: password,
             role: "user"
         }
-        console.log("Does it get here ?")
-        await db.dummyUsers.insertOne({ user: user })
+        await db.users.insertOne(user)
         sendEmail(email);
         res.send({ data: "Login successful" });
     } else {
@@ -61,7 +60,7 @@ router.post("/api/login", async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     
-    const user = await db.dummyUser.findOne({email: email});
+    const user = await db.users.findOne({email: email});
     
     const authConfirmation = await isSame(password, user.password)
     
