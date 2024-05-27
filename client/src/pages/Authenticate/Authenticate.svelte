@@ -92,7 +92,7 @@
     try {
         const result = await fetchPost($BASE_URL + "/login", body);
         if(result == "correct"){
-        user.set(result.username);
+        user.set(result.role);
         const from = ($location.state && $location.state.from) || "/";
         navigate(from, {replace: true});
         } else {
