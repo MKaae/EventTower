@@ -1,16 +1,26 @@
 import "dotenv/config";
 import express from "express";
+
+
 const app = express();
 
 app.use(express.json());
 
 import session from "express-session";
-app.use(session({
+const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false }
-}));
+});
+
+app.use(sessionMiddleware);
+
+import http from "http";
+const server = http.createServer(app);
+
+import setupSocketServer from "./util/sockets.js";
+setupSocketServer(server, sessionMiddleware);
 
 import path from "path";
 app.use(express.static(path.resolve("../client/dist")));
@@ -28,10 +38,6 @@ liveReloadServer.server.once("connection", () => {
 
 app.use(connectLivereload());
 
-app.get("/test", (req, res) => {
-  res.send({ data: "test123" });
-});
-
 import authRouter from "./routers/authRouter.js";
 app.use(authRouter);
 
@@ -47,6 +53,9 @@ app.use(leaderboardsRouter);
 import statsRouter from "./routers/statsRouter.js";
 app.use(statsRouter);
 
+import chatRouter from "./routers/chatRouter.js"
+app.use(chatRouter);
+
 
 const PORT = process.env.PORT ?? 8080;
-app.listen(PORT, () => console.log("Server is running on:", PORT));
+server.listen(PORT, () => console.log("Server is running on:", PORT));

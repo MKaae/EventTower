@@ -7,11 +7,14 @@
   import { locationStore } from "../../stores/locationStore.js";
   import ArticleCard from "../../components/ArticleCard.svelte";
   import ArticleCardAdmin from "../../components/ArticleCardAdmin.svelte";
+  import toast, {Toaster} from 'svelte-french-toast';
 
   const params = useParams();
   const eventId = $params.id;
   let event = {};
   let articleList = [];
+
+  $: articleList;
 
   let user = { role: "admin" };
 
@@ -31,9 +34,19 @@
     };
 
     try {
-      const response = await fetchPost(`http://localhost:8080/api/events/${eventId}/article`, newEvent);
+      await fetchPost(`http://localhost:8080/api/events/${eventId}/article`, newEvent);
+      
+      toast.success("Article succesfully created.", {
+            position: "bottom-center"
+      });
+
+      event = await fetchGet(`http://localhost:8080/api/events/${eventId}`);
+      articleList = event.articles;
     } catch (error) {
       console.error(error);
+      toast.error("Error creating Article.", {
+            position: "bottom-center"
+      });
     }
   }
 </script>
@@ -59,3 +72,4 @@
     {/each}
   </div>
 </div>
+<Toaster />

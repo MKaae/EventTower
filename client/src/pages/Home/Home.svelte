@@ -24,7 +24,7 @@
             position: "bottom-center"
       });
 
-      const response = await fetchPost("http://localhost:8080/api/games", newGame);
+      await fetchPost("http://localhost:8080/api/games", newGame);
     } catch (error) {
       toast.error("Error creating new game.", {
             position: "bottom-center"

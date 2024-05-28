@@ -16,7 +16,6 @@ router.get("/api/events", async (req, res) => {
 });
 
 router.get("/api/events/:id", async (req, res) => {
-  // Add error handling here
   const eventId = req.params.id;
   let id;
   try {
@@ -41,10 +40,13 @@ router.get("/api/events/:id", async (req, res) => {
 
 router.post("/api/events", async (req, res) => {
   const newEvent = req.body;
+  newEvent.articles = [];
+  newEvent.general = {};
+  newEvent.messages = [];
 
   try {
     db.events.insertOne(newEvent);
-    s;
+    res.send({ data: "Event created successfully" });
   } catch (error) {
     console.error("Unable to save event", error);
     res.status(500).send({ error: "Internal Server Error." });
@@ -56,13 +58,12 @@ router.post("/api/events/:id/article", async (req, res) => {
   const newArticle = req.body;
 
   try {
-    const id = new ObjectId(eventId);
+    const id = ObjectId.createFromHexString(eventId);
     const event = await db.events.findOne({ _id: id });
 
     if (!event) {
       return res.status(404).send({ data: "Event not found." });
     }
-
     event.articles.push(newArticle);
     await db.events.updateOne({ _id: id }, { $set: { articles: event.articles } });
     res.status(200).send({ data: "Event updated succesfully." });
