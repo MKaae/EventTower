@@ -6,7 +6,7 @@
   let body;
 </script>
 
-<div class="m-5 p-5 bg-light">
+<div class="m-5 p-5 bg-light border border-3 border-grey rounded shadow">
   <h1>Dummy article title</h1>
   <p>Dummy article body</p>
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

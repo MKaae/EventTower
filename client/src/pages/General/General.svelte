@@ -41,8 +41,7 @@
   };
 </script>
 
-<div class="container mt-4">
-  <h1>General Strategy</h1>
+<div class="container mt-4 m-2">
   {#if isEditing}
     <button class="btn btn-primary mb-3" on:click={saveChanges}>Save</button>
 
@@ -53,7 +52,7 @@
     {#if $user === "admin"}
       <button class="btn btn-secondary" on:click={startEditing}>Edit</button>
     {/if}
-    <div class="mb-3">
+    <div class="mb-3 m-3 p-2 bg-light border border-3 border-grey rounded shadow">
       {@html generalBody}
     </div>
   {/if}

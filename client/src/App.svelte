@@ -70,7 +70,7 @@
     </button>
     {/if}
     {#if showNavbar === true}
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary border border-3 border-grey rounded shadow" style="width: 280px; min-height:100vh">
       <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none ">
         <span class="fs-4">Eventtower</span>
       </a>

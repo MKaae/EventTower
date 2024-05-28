@@ -2,7 +2,7 @@
   export let players;
 </script>
 
-<table class="table">
+<table class="table border border-3 border-grey rounded shadow">
   <thead>
     <tr>
       <th scope="col">rank</th>
