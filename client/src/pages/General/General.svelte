@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { useParams } from "svelte-navigator";
-  import { fetchGet } from "../../../util/api";
+  import { fetchGet, fetchPost } from "../../../util/api";
   import { locationStore } from "../../stores/locationStore";
 
   const params = useParams();
@@ -9,15 +9,51 @@
   const user = { role: "admin" };
   let event = {};
   let generalBody;
-  
+  let isEditing = false;
+  let newGeneralBody = "";
+
   onMount(async () => {
     event = await fetchGet(`http://localhost:8080/api/events/${eventId}`);
     generalBody = event.general.body;
+    newGeneralBody = generalBody;
     locationStore.update();
   });
+
+  const startEditing = () => {
+    isEditing = true;
+  };
+
+  const saveChanges = async () => {
+    isEditing = false;
+    generalBody = newGeneralBody;
+    try {
+      await fetchPost(`http://localhost:8080/api/events/${eventId}/update`, {
+        ...event,
+        general: {
+          ...event.general,
+          body: generalBody,
+        },
+      });
+    } catch (error) {
+      console.error("Failed to save changes:", error);
+    }
+  };
 </script>
 
-<div class="container">
+<div class="container mt-4">
   <h1>General Strategy</h1>
-  {@html generalBody}
+  {#if isEditing}
+    <button class="btn btn-primary mb-3" on:click={saveChanges}>Save</button>
+
+    <div class="mb-3">
+      <textarea class="form-control" rows="10" bind:value={newGeneralBody}></textarea>
+    </div>
+  {:else}
+    {#if user.role === "admin"}
+      <button class="btn btn-secondary" on:click={startEditing}>Edit</button>
+    {/if}
+    <div class="mb-3">
+      {@html generalBody}
+    </div>
+  {/if}
 </div>
