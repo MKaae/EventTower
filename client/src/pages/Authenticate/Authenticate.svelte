@@ -114,7 +114,7 @@
   });
 </script>
 
-<div>
+<div class="container d-flex justify-content-center align-items-center vh-100">
     <div 
     class="flip2 position-absolute flex-column p-4 border border-3 border-grey rounded shadow"
     style="transform: rotateY({showSignUp ? '-180deg' : '0deg'})"

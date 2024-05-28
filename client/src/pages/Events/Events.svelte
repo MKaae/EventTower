@@ -5,8 +5,7 @@
   import EventCardAdmin from "../../components/EventCardAdmin.svelte";
   import { gameTitle } from "../../stores/generalStore";
   import toast, {Toaster} from 'svelte-french-toast';
-  import { user } from "../../stores/generalStore.js";
-  import { locationStore } from "../../stores/locationStore.js";
+  import { user, eventId } from "../../stores/generalStore.js";
 
   const game = $gameTitle;
 
@@ -16,7 +15,6 @@
 
   onMount(async () => {
     eventsList = await fetchGet(`http://localhost:8080/api/game/${game}`);
-    locationStore.update();
   });
 
   async function handleNewEvent(imageURL, game, name, description) {
@@ -44,7 +42,7 @@
   }
 </script>
 
-<div class="container mt-5">
+<div class="container mt-5 m-4">
   <h1>Discover Exciting Events Across All Your Favorite Games</h1>
   <p>
     Explore a diverse range of active events for every game you love. Stay updated with the latest news,

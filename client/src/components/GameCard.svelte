@@ -1,12 +1,13 @@
 <script>
   import { Link } from "svelte-navigator";
-  import { gameTitle } from "../stores/generalStore.js";
+  import { eventId, gameTitle } from "../stores/generalStore.js";
 
   export let game;
 
   function gameStore(){
-    gameTitle.set(game.name)
-  }
+    gameTitle.set(game.name);
+    eventId.set(null);
+  };
 </script>
 
 <div class="col-12 col-lg-4 d-flex justify-content-center">

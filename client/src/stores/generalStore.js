@@ -10,10 +10,8 @@ export const gameTitle = writable(null);
 export const eventName = writable(null);
 
 export const eventPage = writable(false);
-export const eventStore = writable({
-  id: "",
-});
 
+export const eventId = writable(null);
 
 export const location = writable({});
 

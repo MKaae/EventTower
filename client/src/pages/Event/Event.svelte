@@ -1,27 +1,22 @@
 <script>
-  import { onMount, setContext } from "svelte";
+  import { onMount } from "svelte";
   import { useParams } from "svelte-navigator";
   import { fetchGet, fetchPost } from "../../../util/api.js";
-  import { eventPage } from "../../stores/generalStore.js";
-  import { eventStore } from "../../stores/generalStore.js";
-  import { locationStore } from "../../stores/locationStore.js";
   import ArticleCard from "../../components/ArticleCard.svelte";
   import ArticleCardAdmin from "../../components/ArticleCardAdmin.svelte";
   import toast, {Toaster} from 'svelte-french-toast';
-  import { user } from "../../stores/generalStore.js";
+  import { user, eventId } from "../../stores/generalStore.js";
 
   const params = useParams();
-  const eventId = $params.id;
+
   let event = {};
   let articleList = [];
 
   $: articleList;
 
   onMount(async () => {
-    locationStore.update();
-    event = await fetchGet(`http://localhost:8080/api/events/${eventId}`);
-    eventPage.set(true);
-    eventStore.set({ id: event._id });
+    const currentEventId = $eventId;
+    event = await fetchGet(`http://localhost:8080/api/events/${currentEventId}`);
     articleList = event.articles;
   });
 
@@ -33,13 +28,14 @@
     };
 
     try {
-      await fetchPost(`http://localhost:8080/api/events/${eventId}/article`, newEvent);
+      const currentEventId = $eventId;
+      await fetchPost(`http://localhost:8080/api/events/${currentEventId}/article`, newEvent);
       
       toast.success("Article succesfully created.", {
             position: "bottom-center"
       });
 
-      event = await fetchGet(`http://localhost:8080/api/events/${eventId}`);
+      event = await fetchGet(`http://localhost:8080/api/events/${currentEventId}`);
       articleList = event.articles;
     } catch (error) {
       console.error(error);
