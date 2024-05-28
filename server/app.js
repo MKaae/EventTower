@@ -53,9 +53,8 @@ app.use(leaderboardsRouter);
 import statsRouter from "./routers/statsRouter.js";
 app.use(statsRouter);
 
-import chatRouter from "./routers/chatRouter.js"
+import chatRouter from "./routers/chatRouter.js";
 app.use(chatRouter);
-
 
 const PORT = process.env.PORT ?? 8080;
 server.listen(PORT, () => console.log("Server is running on:", PORT));

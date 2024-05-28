@@ -16,7 +16,7 @@
   $: eventsList;
 
   onMount(async () => {
-    eventsList = await fetchGet(`http://localhost:8080/api/events/game/${game}`);
+    eventsList = await fetchGet(`http://localhost:8080/api/game/${game}`);
     locationStore.update();
   });
 
@@ -35,7 +35,7 @@
             position: "bottom-center"
       });
       
-      eventsList = await fetchGet(`http://localhost:8080/api/events/game/${game}`);
+      eventsList = await fetchGet(`http://localhost:8080/api/game/${game}`);
     } catch (error) {
       toast.error("Error creating event.", {
             position: "bottom-center"
