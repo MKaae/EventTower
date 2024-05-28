@@ -194,7 +194,7 @@
                 type="submit" 
                 data-mdb-button-init data-mdb-ripple-init 
                 class="btn btn-primary btn-block mb-2">
-                Sign in
+                Signup
                 </button>
             </div>
         </form>
@@ -256,7 +256,7 @@
                 type="submit" 
                 data-mdb-button-init data-mdb-ripple-init 
                 class="btn btn-primary btn-block mb-2" 
-                >Sign in</button>
+                >Login</button>
             </div>
         </form>
         <div class="text-center">

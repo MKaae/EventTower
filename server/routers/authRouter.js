@@ -62,8 +62,12 @@ router.post("/api/login", async (req, res) => {
     
     const user = await db.users.findOne({email: email});
 
-    const authConfirmation = await isSame(password, user.password)
-    
+    if (!user) {
+        return res.send({ data: "User not found" });
+    }
+
+    const authConfirmation = await isSame(password, user.password);
+
     if(email === user.email && authConfirmation){
         req.session.user = {
             email: email,

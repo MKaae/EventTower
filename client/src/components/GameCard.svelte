@@ -1,5 +1,12 @@
 <script>
+  import { Link } from "svelte-navigator";
+  import { gameTitle } from "../stores/generalStore.js";
+
   export let game;
+
+  function gameStore(){
+    gameTitle.set(game.name)
+  }
 </script>
 
 <div class="col-12 col-lg-4 d-flex justify-content-center">
@@ -8,7 +15,7 @@
     <div class="card-body d-flex flex-column justify-content-between">
       <h5 class="card-title">{game?.name}</h5>
       <p class="card-text">{game?.description}</p>
-      <a href="/" class="btn btn-primary align-self-end">See events</a>
+      <Link to={`/events`} on:click={gameStore} class="btn btn-primary align-self-end">See events</Link>
     </div>
   </div>
 </div>
