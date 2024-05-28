@@ -19,10 +19,10 @@ if (isDeleteMode) {
       await usersCollection.deleteMany({});
 
       const dummyUsers = [
-        { name: "John Doe", email: "john.doe@example.com" },
-        { name: "Jane Smith", email: "jane.smith@example.com" },
-        { name: "Alice Johnson", email: "alice.johnson@example.com" },
-        { name: "Steffen Andersen", email: "steffen.andersen@example.com" },
+        { username: "JohnDoe", email: "john.doe@example.com" },
+        { username: "JaneSmith", email: "jane.smith@example.com" },
+        { username: "AliceJohnson", email: "alice.johnson@example.com" },
+        { username: "SteffenAndersen", email: "steffen.andersen@example.com" },
       ];
 
       const result = await usersCollection.insertMany(dummyUsers);

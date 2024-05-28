@@ -4,6 +4,14 @@ const app = express();
 
 app.use(express.json());
 
+import session from "express-session";
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }
+}));
+
 import path from "path";
 app.use(express.static(path.resolve("../client/dist")));
 
@@ -24,6 +32,9 @@ app.get("/test", (req, res) => {
   res.send({ data: "test123" });
 });
 
+import authRouter from "./routers/authRouter.js";
+app.use(authRouter);
+
 import gamesRouter from "./routers/gamesRouter.js";
 app.use(gamesRouter);
 
@@ -32,6 +43,10 @@ app.use(eventsRouter);
 
 import leaderboardsRouter from "./routers/leaderboardsRouter.js";
 app.use(leaderboardsRouter);
+
+import statsRouter from "./routers/statsRouter.js";
+app.use(statsRouter);
+
 
 const PORT = process.env.PORT ?? 8080;
 app.listen(PORT, () => console.log("Server is running on:", PORT));
