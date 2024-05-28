@@ -13,7 +13,7 @@
   import Stats from "./pages/Stats/Stats.svelte";
   // @ts-ignore
   import { Router, Link, Route } from "svelte-navigator";
-  import {user} from "../src/stores/generalStore.js";
+  import {gameTitle, user, eventName} from "../src/stores/generalStore.js";
   import { fetchGet } from "../util/api";
   import toast, {Toaster} from 'svelte-french-toast';
 
@@ -72,13 +72,12 @@
             </svg>
             Events
           </Link>
-          
           {#if $locationStore.pathname.includes("/events/")}
-            <Link to={`events/${eventId}`} class=" mt-3 nav-link active">
+          <Link to={`/events/${eventId}`} class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
                 <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
               </svg>
-              Event
+              Event News
             </Link>
             <Link to="/events/{eventId}/chat" class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
@@ -86,13 +85,26 @@
               </svg>
               Chats
             </Link>
-
-            <Link to={`events/${eventId}/general`} class=" mt-3 nav-link active">
+            <Link to={`/events/${eventId}/general`} class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
                 <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
               </svg>
               General Strategy
             </Link>
+            {#if $eventName === "Deep Dip 2"}
+              <Link to="/leaderboard" class=" mt-3 nav-link active">
+                <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+                  <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
+                </svg>
+                Leaderboard
+              </Link>
+              <Link to="/stats" class=" mt-3 nav-link active">
+                <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+                  <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
+                </svg>
+                Statistics
+              </Link>
+            {/if}
           {/if}
           {#if $user === null}
           <Link to="/auth" class=" mt-3 nav-link active">
@@ -119,7 +131,6 @@
       <Route path="/events">
         <Events />
       </Route>
-      
       <Route path="/auth">
         <div class="d-flex flex-column w-50 align-items-center">        
           <Authenticate />
@@ -134,8 +145,12 @@
       <Route path="/events/:id/general">
         <General />
       </Route>
-      <!-- <Route path="/leaderboard/:id"> <Leaderboard /> </Route> -->
-      <!-- <PrivateRoute path="/chatroom"></PrivateRoute> -->
+      <Route path="/leaderboard">
+        <Leaderboard />
+      </Route>
+      <Route path="/stats">
+        <Stats />
+      </Route>
     </div>
   </div>
 </Router>

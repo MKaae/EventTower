@@ -8,6 +8,8 @@
   const user = { role: "admin" };
   let gamesList = [];
 
+  $: gamesList;
+
   onMount(async () => {
     gamesList = await fetchGet("http://localhost:8080/api/games");
   });

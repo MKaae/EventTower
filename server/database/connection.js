@@ -19,10 +19,10 @@ if (isDeleteMode) {
       await usersCollection.deleteMany({});
 
       const dummyUsers = [
-        { username: "JohnDoe", email: "john.doe@example.com" },
-        { username: "JaneSmith", email: "jane.smith@example.com" },
-        { username: "AliceJohnson", email: "alice.johnson@example.com" },
-        { username: "SteffenAndersen", email: "steffen.andersen@example.com" },
+        { username: "JohnDoe", email: "john.doe@example.com", password: "123", role:"user" },
+        { username: "JaneSmith", email: "jane.smith@example.com", password: "123", role:"user" },
+        { username: "AliceJohnson", email: "alice.johnson@example.com", password: "123", role:"user" },
+        { username: "SteffenAndersen", email: "steffen.andersen@example.com", password: "123", role:"user" },
       ];
 
       const result = await usersCollection.insertMany(dummyUsers);
@@ -38,21 +38,18 @@ if (isDeleteMode) {
           name: "Trackmania",
           description:
             "Some quick example text to build on the card title and make up the bulk of the card's content.",
-          link: "/",
         },
         {
           imageURL: "https://cdn.cloudflare.steamstatic.com/steam/apps/730/capsule_616x353.jpg",
           name: "CS2",
           description:
             "Some quick example text to build on the card title and make up the bulk of the card's content.",
-          link: "/",
         },
         {
           imageURL: "https://cdn.cloudflare.steamstatic.com/steam/apps/238960/header.jpg",
           name: "Path of Exile",
           description:
             "Some quick example text to build on the card title and make up the bulk of the card's content.",
-          link: "/",
         },
       ];
       const gamesResult = await gamesCollection.insertMany(dummyGames);
@@ -65,10 +62,10 @@ if (isDeleteMode) {
       const dummyEvents = [
         {
           imageURL: "https://blog.trackmania.com//uploads/2023/03/KEYART_SPRING_2023_LOGOTEXT.jpg",
-          game: "trackmania",
-          name: "Trackmania Spring 2023",
+          game: "Trackmania",
+          name: "Deep Dip 2",
           description:
-            "The Spring 2023 campaign will be the 12th seasonal campaign available in Trackmania from April 1st. 25",
+            "Deep Dip 2 is an ongoing event in trackmania to climb a tower.",
           articles: [
             {
               title: "Trackmania World Cup Announced for August",

@@ -5,13 +5,15 @@ const router = Router();
 
 import db from "../database/connection.js";
 
-router.get("/api/events", async (req, res) => {
+router.get("/api/events/game/:game", async (req, res) => {
   try {
-    const allEvents = await db.events.find().toArray();
+    const game = req.params.game;
+    const filteredEvents = await db.events.find({ game: game }).toArray();
 
-    res.send({ data: allEvents });
+    res.send({ data: filteredEvents });
   } catch (error) {
     console.error(error);
+    res.status(500).send({ error: 'An error occurred while fetching events.' });
   }
 });
 

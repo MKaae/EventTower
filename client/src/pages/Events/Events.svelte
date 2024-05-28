@@ -3,12 +3,12 @@
   import { fetchGet, fetchPost } from "../../../util/api";
   import EventCard from "../../components/EventCard.svelte";
   import EventCardAdmin from "../../components/EventCardAdmin.svelte";
-
+  import { gameTitle } from "../../stores/generalStore";
   import toast, {Toaster} from 'svelte-french-toast';
 
-  import { eventPage } from "../../stores/generalStore";
   import { locationStore } from "../../stores/locationStore.js";
 
+  const game = $gameTitle;
 
   const user = { role: "admin" };
   let eventsList = [];
@@ -16,7 +16,7 @@
   $: eventsList;
 
   onMount(async () => {
-    eventsList = await fetchGet("http://localhost:8080/api/events");
+    eventsList = await fetchGet(`http://localhost:8080/api/events/game/${game}`);
     locationStore.update();
   });
 
@@ -35,7 +35,7 @@
             position: "bottom-center"
       });
       
-      eventsList = await fetchGet("http://localhost:8080/api/events");
+      eventsList = await fetchGet(`http://localhost:8080/api/events/game/${game}`);
     } catch (error) {
       toast.error("Error creating event.", {
             position: "bottom-center"
