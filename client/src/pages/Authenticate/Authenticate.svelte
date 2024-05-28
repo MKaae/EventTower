@@ -8,7 +8,7 @@
   import toast, {Toaster} from 'svelte-french-toast'
 
   let showSignUp = true;
-
+  
   const location = useLocation();
 
   const {
@@ -51,10 +51,9 @@
             position: "bottom-center"
         })
         } else { 
-        toast.success("Signup successful, ready to login.", {
-            position: "bottom-center"
-        });
-        showSignUp = false;
+            toast.success("Signup successful, ready to login.", {
+                position: "bottom-center"
+            });
         }
     } catch (error) {
         if (error.status === 404) {

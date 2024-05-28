@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { useParams } from "svelte-navigator";
-  import { fetchGet, fetchPost } from "../../../util/api";
+  import { fetchGet, fetchPut } from "../../../util/api";
   import { locationStore } from "../../stores/locationStore";
 
   const params = useParams();
@@ -27,7 +27,7 @@
     isEditing = false;
     generalBody = newGeneralBody;
     try {
-      await fetchPost(`http://localhost:8080/api/events/${eventId}/update`, {
+      await fetchPut(`http://localhost:8080/api/events/${eventId}`, {
         ...event,
         general: {
           ...event.general,

@@ -5,18 +5,6 @@ const router = Router();
 
 import db from "../database/connection.js";
 
-router.get("/api/events/game/:game", async (req, res) => {
-  try {
-    const game = req.params.game;
-    const filteredEvents = await db.events.find({ game: game }).toArray();
-
-    res.send({ data: filteredEvents });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ error: 'An error occurred while fetching events.' });
-  }
-});
-
 router.get("/api/events/:id", async (req, res) => {
   const eventId = req.params.id;
   let id;
@@ -56,8 +44,8 @@ router.post("/api/events", async (req, res) => {
 });
 
 router.post("/api/events/:id/article", async (req, res) => {
-  const eventId = req.params.id;
   const newArticle = req.body;
+  const eventId = req.params.id;
 
   try {
     const id = ObjectId.createFromHexString(eventId);
@@ -69,6 +57,29 @@ router.post("/api/events/:id/article", async (req, res) => {
     event.articles.push(newArticle);
     await db.events.updateOne({ _id: id }, { $set: { articles: event.articles } });
     res.status(200).send({ data: "Event updated succesfully." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ data: "Internal Server Error." });
+  }
+});
+
+router.put("/api/events/:id", async (req, res) => {
+  const eventId = req.params.id;
+  const updatedEvent = req.body;
+
+  try {
+    const id = ObjectId.createFromHexString(eventId);
+    const event = await db.events.findOne({ _id: id });
+
+    if (!event) {
+      return res.status(404).send({ data: "Event not found." });
+    }
+    
+    delete updatedEvent._id;
+
+    await db.events.updateOne({ _id: id }, { $set: updatedEvent });
+    res.status(200).send({ data: "Event updated successfully." });
+
   } catch (error) {
     console.error(error);
     res.status(500).send({ data: "Internal Server Error." });

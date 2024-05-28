@@ -14,6 +14,18 @@ router.get("/api/games", async (req, res) => {
   }
 });
 
+router.get("/api/game/:game", async (req, res) => {
+  try {
+    const game = req.params.game;
+    const filteredEvents = await db.events.find({ game: game }).toArray();
+
+    res.send({ data: filteredEvents });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'An error occurred while fetching events.' });
+  }
+});
+
 router.post("/api/games", async (req, res) => {
   const newGame = req.body;
 
@@ -25,3 +37,5 @@ router.post("/api/games", async (req, res) => {
 });
 
 export default router;
+
+
