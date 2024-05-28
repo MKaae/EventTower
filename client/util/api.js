@@ -31,7 +31,6 @@ export async function fetchPost(url, body){
   
         if (!response.ok) {
             const error = new Error(`HTTP error! status: ${response.status}`);
-            error.status = response.status;
             throw error;
         }
   
