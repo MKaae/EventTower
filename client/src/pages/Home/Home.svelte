@@ -4,8 +4,8 @@
   import { fetchGet, fetchPost } from "../../../util/api.js";
   import GameCardAdmin from "../../components/GameCardAdmin.svelte";
   import toast, {Toaster} from 'svelte-french-toast';
+  import { user } from "../../stores/generalStore.js";
 
-  const user = { role: "admin" };
   let gamesList = [];
 
   $: gamesList;
@@ -58,7 +58,7 @@
   <input bind:value={searchTerm} type="text" placeholder="Search..." />
 
   <div class="row gx-5 gy-5 mt-3">
-    {#if user.role === "admin"}
+    {#if $user === "admin"}
       <GameCardAdmin onNewGame={handleNewGame} />
     {/if}
 

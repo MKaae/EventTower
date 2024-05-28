@@ -22,7 +22,6 @@ import { sendEmail } from "../emailService/emailService.js";
 router.post("/api/signup", async (req, res) => {
     const email = req.body.email;
     const username = req.body.username;
-    
     let checkEmailUnique = null;
     let checkUsernameUnique = null;
     try{
@@ -40,7 +39,7 @@ router.post("/api/signup", async (req, res) => {
     }
     
     const password = await hashPw(req.body.password);
-
+    
     if(email && password){
         const user = {
             username: username,

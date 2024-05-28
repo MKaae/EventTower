@@ -8,6 +8,7 @@
   import ArticleCard from "../../components/ArticleCard.svelte";
   import ArticleCardAdmin from "../../components/ArticleCardAdmin.svelte";
   import toast, {Toaster} from 'svelte-french-toast';
+  import { user } from "../../stores/generalStore.js";
 
   const params = useParams();
   const eventId = $params.id;
@@ -15,8 +16,6 @@
   let articleList = [];
 
   $: articleList;
-
-  let user = { role: "admin" };
 
   onMount(async () => {
     locationStore.update();
@@ -53,18 +52,18 @@
 
 <div class="container-fluid mt-5 d-flex flex-column justify-content-center align-items-center">
   <div class="row d-flex justify-content-center">
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-lg-6" style="max-width: 500px; max-height: auto;">
+      <img src={event.imageURL} alt="event" class="img-fluid rounded" />
+    </div>
+    <div class="col-12 col-lg-6 bg-light">
       <h1 class="text-center">{event.name}</h1>
       <p class="text-center">{event.description}</p>
     </div>
 
-    <div class="col-12 col-lg-6" style="max-width: 500px; max-height: auto;">
-      <img src={event.imageURL} alt="event" class="img-fluid rounded" />
-    </div>
   </div>
-  <div class="m-5"><h2>News</h2></div>
+  <div class="m-5"><h3>Newsfeed</h3></div>
   <div>
-    {#if user.role === "admin"}
+    {#if $user === "admin"}
       <ArticleCardAdmin onNewArticle={handleNewArticle} />
     {/if}
     {#each articleList as article}
