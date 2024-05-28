@@ -2,9 +2,12 @@
   import { onDestroy, onMount } from "svelte";
 
   import Home from "./pages/Home/Home.svelte";
+  import Event from "./pages/Event/Event.svelte";
   import Events from "./pages/Events/Events.svelte";
-  import Leaderboard from "./pages/Leaderboard/Leaderboard.svelte";
+  import General from "./pages/General/General.svelte";
   import PrivateRoute from "./components/PrivateRoute.svelte";
+
+  import Leaderboard from "./pages/Leaderboard/Leaderboard.svelte";
   import Authenticate from "./pages/Authenticate/Authenticate.svelte";
   import Stats from "./pages/Stats/Stats.svelte";
   // @ts-ignore
@@ -87,6 +90,13 @@
               </svg>
               Event
             </Link>
+
+            <Link to={`events/${eventId}/general`} class=" mt-3 nav-link active">
+              <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+                <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
+              </svg>
+              General Strategy
+            </Link>
           {/if}
           {#if $user}
             <a href="/" on:click|preventDefault={logout} class="mt-3 nav-link active" aria-current="page">
@@ -113,6 +123,9 @@
       </Route>
       <Route path="/events/:id">
         <Event />
+      </Route>
+      <Route path="/events/:id/general">
+        <General />
       </Route>
       <!-- <Route path="/leaderboard/:id"> <Leaderboard /> </Route> -->
       <!-- <PrivateRoute path="/chatroom"></PrivateRoute> -->
