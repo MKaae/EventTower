@@ -3,10 +3,11 @@
   import { useParams } from "svelte-navigator";
   import { fetchGet, fetchPut } from "../../../util/api";
   import { locationStore } from "../../stores/locationStore";
+  import { user } from "../../stores/generalStore.js";
 
   const params = useParams();
   const eventId = $params.id;
-  const user = { role: "admin" };
+
   let event = {};
   let generalBody;
   let isEditing = false;
@@ -49,7 +50,7 @@
       <textarea class="form-control" rows="10" bind:value={newGeneralBody}></textarea>
     </div>
   {:else}
-    {#if user.role === "admin"}
+    {#if $user === "admin"}
       <button class="btn btn-secondary" on:click={startEditing}>Edit</button>
     {/if}
     <div class="mb-3">

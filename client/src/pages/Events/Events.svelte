@@ -5,12 +5,11 @@
   import EventCardAdmin from "../../components/EventCardAdmin.svelte";
   import { gameTitle } from "../../stores/generalStore";
   import toast, {Toaster} from 'svelte-french-toast';
-
+  import { user } from "../../stores/generalStore.js";
   import { locationStore } from "../../stores/locationStore.js";
 
   const game = $gameTitle;
 
-  const user = { role: "admin" };
   let eventsList = [];
 
   $: eventsList;
@@ -53,7 +52,7 @@
     enhance your gaming experience!
   </p>
   <div class="row gx-5 gy-5 mt-3">
-    {#if user.role === "admin"}
+    {#if $user === "admin"}
       <EventCardAdmin onNewGame={handleNewEvent} />
     {/if}
 

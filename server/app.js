@@ -56,5 +56,9 @@ app.use(statsRouter);
 import chatRouter from "./routers/chatRouter.js";
 app.use(chatRouter);
 
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve('../client/dist/index.html'))
+});
+
 const PORT = process.env.PORT ?? 8080;
 server.listen(PORT, () => console.log("Server is running on:", PORT));
