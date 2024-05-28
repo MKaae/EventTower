@@ -2,11 +2,9 @@
   import { onMount } from "svelte";
   import { useParams } from "svelte-navigator";
   import { fetchGet, fetchPut } from "../../../util/api";
-  import { locationStore } from "../../stores/locationStore";
-  import { user } from "../../stores/generalStore.js";
+  import { user, eventId } from "../../stores/generalStore.js";
 
   const params = useParams();
-  const eventId = $params.id;
 
   let event = {};
   let generalBody;
@@ -14,10 +12,10 @@
   let newGeneralBody = "";
 
   onMount(async () => {
-    event = await fetchGet(`http://localhost:8080/api/events/${eventId}`);
+    const currentEventId = $eventId;
+    event = await fetchGet(`http://localhost:8080/api/events/${currentEventId}`);
     generalBody = event.general.body;
     newGeneralBody = generalBody;
-    locationStore.update();
   });
 
   const startEditing = () => {
@@ -28,7 +26,8 @@
     isEditing = false;
     generalBody = newGeneralBody;
     try {
-      await fetchPut(`http://localhost:8080/api/events/${eventId}`, {
+      const currentEventId = $eventId;
+      await fetchPut(`http://localhost:8080/api/events/${currentEventId}`, {
         ...event,
         general: {
           ...event.general,
@@ -42,6 +41,7 @@
 </script>
 
 <div class="container mt-4 m-2">
+  <h5>Trackmania Strategies</h5>
   {#if isEditing}
     <button class="btn btn-primary mb-3" on:click={saveChanges}>Save</button>
 

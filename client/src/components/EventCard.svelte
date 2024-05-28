@@ -1,11 +1,12 @@
 <script>
   import { Link } from "svelte-navigator";
-  import { eventName } from "../stores/generalStore.js";
+  import { eventName, eventId } from "../stores/generalStore.js";
 
   export let event;
 
   function setEventName(){
     eventName.set(event.name);
+    eventId.set(event._id);
   }
 </script>
 

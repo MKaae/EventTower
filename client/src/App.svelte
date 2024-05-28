@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy, onMount } from "svelte";
+  import { onMount } from "svelte";
 
   import Chat from "./pages/Chat/Chat.svelte"
   import Home from "./pages/Home/Home.svelte";
@@ -13,9 +13,11 @@
   import Stats from "./pages/Stats/Stats.svelte";
   // @ts-ignore
   import { Router, Link, Route } from "svelte-navigator";
-  import {gameTitle, user, eventName} from "../src/stores/generalStore.js";
+  import { user, eventName, eventId} from "../src/stores/generalStore.js";
   import { fetchGet } from "../util/api";
   import toast, {Toaster} from 'svelte-french-toast';
+
+  let currentId = $eventId;
 
   const logout = async () => {
       try{
@@ -24,18 +26,13 @@
         console.error(error);
       }
       user.set(null);
-      //clear eventstore 
-      //redirect fp
+      eventId.set(null);
       toast.success("Logged out.", {
             position: "bottom-center"
     });
   };
 
-  import { eventStore } from "./stores/generalStore.js";
-  import { locationStore } from "./stores/locationStore";
-
   onMount(async () => {
-    locationStore.update();
     handleResize();
     window.addEventListener("resize", handleResize);
   });
@@ -50,14 +47,6 @@
     showNavbar = !showNavbar;
   };
 
-  let eventId;
-  const unsubscribe = eventStore.subscribe((event) => {
-    eventId = event.id;
-  });
-
-  onDestroy(() => {
-    unsubscribe();
-  });
 </script>
 
 <Router>
@@ -89,20 +78,20 @@
             </svg>
             Events
           </Link>
-          {#if $locationStore.pathname.includes("/events/")}
-          <Link to={`/events/${eventId}`} class=" mt-3 nav-link active">
+          {#if $eventId !== null}
+          <Link to={`/events`} class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 18 18">
                 <path d="M18.175,4.142H1.951C1.703,4.142,1.5,4.344,1.5,4.592v10.816c0,0.247,0.203,0.45,0.451,0.45h16.224c0.247,0,0.45-0.203,0.45-0.45V4.592C18.625,4.344,18.422,4.142,18.175,4.142 M4.655,14.957H2.401v-1.803h2.253V14.957zM4.655,12.254H2.401v-1.803h2.253V12.254z M4.655,9.549H2.401V7.747h2.253V9.549z M4.655,6.846H2.401V5.043h2.253V6.846zM14.569,14.957H5.556V5.043h9.013V14.957z M17.724,14.957h-2.253v-1.803h2.253V14.957z M17.724,12.254h-2.253v-1.803h2.253V12.254zM17.724,9.549h-2.253V7.747h2.253V9.549z M17.724,6.846h-2.253V5.043h2.253V6.846z" fill="currentColor" />
               </svg>
               Event News
             </Link>
-            <Link to="/events/{eventId}/chat" class=" mt-3 nav-link active">
+            <Link to={`/events/chat`} class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 18 18">
                 <path d="M17.211,3.39H2.788c-0.22,0-0.4,0.18-0.4,0.4v9.614c0,0.221,0.181,0.402,0.4,0.402h3.206v2.402c0,0.363,0.429,0.533,0.683,0.285l2.72-2.688h7.814c0.221,0,0.401-0.182,0.401-0.402V3.79C17.612,3.569,17.432,3.39,17.211,3.39M16.811,13.004H9.232c-0.106,0-0.206,0.043-0.282,0.117L6.795,15.25v-1.846c0-0.219-0.18-0.4-0.401-0.4H3.189V4.19h13.622V13.004z" fill="currentColor" />
               </svg>
               Chats
             </Link>
-            <Link to={`/events/${eventId}/general`} class=" mt-3 nav-link active">
+            <Link to={`/events/general`} class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 18 18">
                 <path d="M6.176,7.241V6.78c0-0.221-0.181-0.402-0.402-0.402c-0.221,0-0.403,0.181-0.403,0.402v0.461C4.79,7.416,4.365,7.955,4.365,8.591c0,0.636,0.424,1.175,1.006,1.35v3.278c0,0.222,0.182,0.402,0.403,0.402c0.222,0,0.402-0.181,0.402-0.402V9.941c0.582-0.175,1.006-0.714,1.006-1.35C7.183,7.955,6.758,7.416,6.176,7.241 M5.774,9.195c-0.332,0-0.604-0.272-0.604-0.604c0-0.332,0.272-0.604,0.604-0.604c0.332,0,0.604,0.272,0.604,0.604C6.377,8.923,6.105,9.195,5.774,9.195 M10.402,10.058V6.78c0-0.221-0.181-0.402-0.402-0.402c-0.222,0-0.402,0.181-0.402,0.402v3.278c-0.582,0.175-1.006,0.714-1.006,1.35c0,0.637,0.424,1.175,1.006,1.351v0.461c0,0.222,0.181,0.402,0.402,0.402c0.221,0,0.402-0.181,0.402-0.402v-0.461c0.582-0.176,1.006-0.714,1.006-1.351C11.408,10.772,10.984,10.233,10.402,10.058M10,12.013c-0.333,0-0.604-0.272-0.604-0.604S9.667,10.805,10,10.805c0.332,0,0.604,0.271,0.604,0.604S10.332,12.013,10,12.013M14.629,8.448V6.78c0-0.221-0.182-0.402-0.403-0.402c-0.221,0-0.402,0.181-0.402,0.402v1.668c-0.581,0.175-1.006,0.714-1.006,1.35c0,0.636,0.425,1.176,1.006,1.351v2.07c0,0.222,0.182,0.402,0.402,0.402c0.222,0,0.403-0.181,0.403-0.402v-2.07c0.581-0.175,1.006-0.715,1.006-1.351C15.635,9.163,15.21,8.624,14.629,8.448 M14.226,10.402c-0.331,0-0.604-0.272-0.604-0.604c0-0.332,0.272-0.604,0.604-0.604c0.332,0,0.604,0.272,0.604,0.604C14.83,10.13,14.558,10.402,14.226,10.402 M17.647,3.962H2.353c-0.221,0-0.402,0.181-0.402,0.402v11.27c0,0.222,0.181,0.402,0.402,0.402h15.295c0.222,0,0.402-0.181,0.402-0.402V4.365C18.05,4.144,17.869,3.962,17.647,3.962 M17.245,15.232H2.755V4.768h14.49V15.232z" fill="currentColor" />
               </svg>
@@ -155,10 +144,8 @@
       <Route path="/events">
         <Events />
       </Route>
-      <Route path="/auth">
-        <div class="d-flex flex-column w-50 align-items-center">        
+      <Route path="/auth">        
           <Authenticate />
-        </div>
       </Route>
       <Route path="/events/:id">
         <Event />

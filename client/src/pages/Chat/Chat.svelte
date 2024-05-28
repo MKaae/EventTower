@@ -3,10 +3,9 @@
   import { onMount } from "svelte";
   import { fetchGet } from "../../../util/api";
   import { useParams } from "svelte-navigator";
-  import { user } from "../../stores/generalStore.js";
+  import { user, eventId } from "../../stores/generalStore.js";
 
     const params = useParams();
-    const eventId = $params.id;
 
     const socket = io("localhost:8080");
     socket.on("server-sends-message", (data) => {
@@ -25,7 +24,8 @@
 
 
     onMount(async () => {
-        const messagesFromDb = await fetchGet(`http://localhost:8080/api/chat/${eventId}`);
+        const currentEventId = $eventId;
+        const messagesFromDb = await fetchGet(`http://localhost:8080/api/chat/${currentEventId}`);
         if(messagesFromDb){
             messages = messagesFromDb;
         }
