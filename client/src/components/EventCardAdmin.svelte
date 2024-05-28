@@ -7,7 +7,7 @@
   let description;
 </script>
 
-<div class="col-12 col-lg-4 d-flex justify-content-center">
+<div class="col-12 col-lg-4 d-flex justify-content-center border border-3 border-grey rounded shadow">
   <div class="card" style="width: 18rem; min-height: 23rem;">
     <img
       src="https://i0.wp.com/godstedlund.dk/wp-content/uploads/2023/04/placeholder-5.png"

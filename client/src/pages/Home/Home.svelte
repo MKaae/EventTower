@@ -48,14 +48,14 @@
   }
 </script>
 
-<div class="container mt-5">
+<div class="container mt-5 m-3">
   <h1>Welcome to Event Tower</h1>
   <p>
     Find active events under every game you can desire. Follow news, chat with like minded souls and and share
     strategies.
   </p>
 
-  <input bind:value={searchTerm} type="text" placeholder="Search..." />
+  <input bind:value={searchTerm} type="text" placeholder="Search..." class="border border-3 border-grey rounded shadow"/>
 
   <div class="row gx-5 gy-5 mt-3">
     {#if $user === "admin"}

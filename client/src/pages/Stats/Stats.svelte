@@ -94,7 +94,7 @@
 
 <div class="d-flex flex-column m-2 justify-content-center">
     <h5 class="text-center m-2">Live Top Climbers - goal at 1910m</h5>
-    <div class="d-flex flex-column m-2 justify-content-center h-100">
+    <div class="d-flex flex-column m-3 justify-content-center h-100 border border-3 border-grey rounded shadow">
         {#if chartData !== null}
         <Bar
             width={70}
@@ -106,12 +106,12 @@
             <h5 class="text-center">Loading Data...</h5>
         {/if}
     </div>
-    <h5 class="text-center m-2">Current statistics for Deep Dip 2</h5>
+    <h5 class="text-center m-4">Current statistics for Deep Dip 2</h5>
     <div>
         {#if overview !== null}
-            <div class="d-flex flex-wrap m-2">
+            <div class="d-flex flex-wrap m-3">
                 {#each overview as item}
-                    <div class="col-md-4 mb-3 text-center">
+                    <div class="col-md-4 mb-3 text-center border border-3 border-grey rounded shadow">
                         <label for="{item.name}">{item.title}</label>
                         <input type="text" id="{item.name}" class="form-control text-center" bind:value={item.value} readonly>
                     </div>
@@ -121,15 +121,15 @@
             <h5 class="text-center">Loading Data...</h5>
         {/if}
     </div>
-    <h5 class="text-center m-2">Current donations and pricepool</h5>
+    <h5 class="text-center m-4">Current donations and pricepool</h5>
     <div class="text-center m-2">
         {#if donations !== null}
         <div class="row">
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-3 border border-3 border-grey rounded shadow">
                 <label for="gfm_total">Total amount of donations</label>
                 <input type="text" id="gfm_total" class="form-control text-center" value={donations.gfm_total} readonly>
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-3 border border-3 border-grey rounded shadow">
                 <label for="pp_total">Total price pool in $</label>
                 <input type="text" id="pp_total" class="form-control text-center" value={donations.pp_total} readonly>
             </div>

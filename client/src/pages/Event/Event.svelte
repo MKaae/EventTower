@@ -53,9 +53,9 @@
 <div class="container-fluid mt-5 d-flex flex-column justify-content-center align-items-center">
   <div class="row d-flex justify-content-center">
     <div class="col-12 col-lg-6" style="max-width: 500px; max-height: auto;">
-      <img src={event.imageURL} alt="event" class="img-fluid rounded" />
+      <img src={event.imageURL} alt="event" class="img-fluid rounded border border-3 border-grey rounded shadow-sm" />
     </div>
-    <div class="col-12 col-lg-6 bg-light">
+    <div class="col-12 col-lg-6 bg-light border border-3 border-grey rounded shadow">
       <h1 class="text-center">{event.name}</h1>
       <p class="text-center">{event.description}</p>
     </div>

@@ -16,7 +16,7 @@
     let message;
     function submitMessage(){
         socket.emit("client-sends-message", {  message: message, eventId: eventId })
-        
+        message = "";
     };
 
     let messages = [];
@@ -31,7 +31,7 @@
         }
     });
 </script>
-<div class="d-flex flex-column justify-content-center align-items-center m-2">
+<div class="d-flex flex-column justify-content-center align-items-center m-2 p-4 border border-3 border-grey rounded shadow">
     <h6>Chatroom</h6>
     {#if $user === null}
         <h1>You are not logged in.</h1>
