@@ -1,6 +1,7 @@
 <script>
   import { onDestroy, onMount } from "svelte";
 
+  import Chat from "./pages/Chat/Chat.svelte"
   import Home from "./pages/Home/Home.svelte";
   import Event from "./pages/Event/Event.svelte";
   import Events from "./pages/Events/Events.svelte";
@@ -13,29 +14,23 @@
   // @ts-ignore
   import { Router, Link, Route } from "svelte-navigator";
   import {user} from "../src/stores/generalStore.js";
-  import { fetchPost } from "../util/api";
+  import { fetchGet } from "../util/api";
   import toast, {Toaster} from 'svelte-french-toast';
 
   const logout = async () => {
-    const userBody = { user: $user};
-    if($user != null){
       try{
-        await fetchPost("http://localhost:8080/api/logout", userBody);
+        await fetchGet("http://localhost:8080/api/logout");
       } catch (error) {
-        toast.error("Error logging out try again.", {
-          position: "bottom-center"
-        });
+        console.error(error);
       }
-    } else {
       user.set(null);
-    }
-    if($user == null){
+      //clear eventstore 
+      //redirect fp
       toast.success("Logged out.", {
             position: "bottom-center"
-      });
-    }
+    });
   };
-  import Event from "./pages/Event/Event.svelte";
+
   import { eventStore } from "./stores/generalStore.js";
   import { locationStore } from "./stores/locationStore";
 
@@ -77,18 +72,19 @@
             </svg>
             Events
           </Link>
-          <Link to="/auth" class=" mt-3 nav-link active">
-            <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
-              <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
-            </svg>
-            Login
-          </Link>
+          
           {#if $locationStore.pathname.includes("/events/")}
             <Link to={`events/${eventId}`} class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
                 <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
               </svg>
               Event
+            </Link>
+            <Link to="/events/{eventId}/chat" class=" mt-3 nav-link active">
+              <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+                <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
+              </svg>
+              Chats
             </Link>
 
             <Link to={`events/${eventId}/general`} class=" mt-3 nav-link active">
@@ -98,24 +94,32 @@
               General Strategy
             </Link>
           {/if}
-          {#if $user}
-            <a href="/" on:click|preventDefault={logout} class="mt-3 nav-link active" aria-current="page">
-              <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
-                <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
-              </svg>
-              Logout
-            </a>
+          {#if $user === null}
+          <Link to="/auth" class=" mt-3 nav-link active">
+            <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+              <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
+            </svg>
+            Login
+          </Link>
+          {:else}
+          <a href="/" on:click|preventDefault={logout} class="mt-3 nav-link active" aria-current="page">
+            <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 64 64">
+              <path d="M32 12L4 36h8v16h16V40h8v12h16V36h8z" fill="currentColor" />
+            </svg>
+            Logout
+          </a>
           {/if}
         </li>
       </ul>
     </div>
     <div class="d-flex flex flex-column justify-content-center w-100">
       <Route path="/">
-        <Stats/>
+        <Home />
       </Route>
       <Route path="/events">
         <Events />
       </Route>
+      
       <Route path="/auth">
         <div class="d-flex flex-column w-50 align-items-center">        
           <Authenticate />
@@ -123,6 +127,9 @@
       </Route>
       <Route path="/events/:id">
         <Event />
+      </Route>
+      <Route path="/events/:id/chat">
+        <Chat />
       </Route>
       <Route path="/events/:id/general">
         <General />

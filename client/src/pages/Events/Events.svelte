@@ -13,6 +13,8 @@
   const user = { role: "admin" };
   let eventsList = [];
 
+  $: eventsList;
+
   onMount(async () => {
     eventsList = await fetchGet("http://localhost:8080/api/events");
     locationStore.update();
@@ -27,11 +29,13 @@
         description: description,
       };
 
+      await fetchPost("http://localhost:8080/api/events", newEvent);
+
       toast.success("Event succesfully created.", {
             position: "bottom-center"
       });
-
-      const response = await fetchPost("http://localhost:8080/api/events", newEvent);
+      
+      eventsList = await fetchGet("http://localhost:8080/api/events");
     } catch (error) {
       toast.error("Error creating event.", {
             position: "bottom-center"

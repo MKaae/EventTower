@@ -6,7 +6,7 @@ import { hashPw, isSame } from "./../util/passwordUtil.js";
 
 import { requireAuth } from "./authMiddleware.js";
 
-router.post("/api/logout", requireAuth, (req, res) => {
+router.get("/api/logout", requireAuth, (req, res) => {
     req.session.destroy((error) => {
         if (error) {
             console.error("Error while logging out:", error);
@@ -69,7 +69,7 @@ router.post("/api/login", async (req, res) => {
             email: email,
             role: user.role
         };
-        res.send({ data: "correct" });
+        res.send({ data: user.role });
     } else {
         res.send({ data: "Wrong password" });
     }
