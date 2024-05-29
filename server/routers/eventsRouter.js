@@ -30,10 +30,7 @@ router.get("/api/events/:id", async (req, res) => {
 
 router.post("/api/events", async (req, res) => {
   const newEvent = req.body;
-  newEvent.articles = [];
-  newEvent.general = {};
-  newEvent.messages = [];
-  console.log(newEvent);
+
   try {
     db.events.insertOne(newEvent);
     res.send({ data: "Event created successfully" });
@@ -84,6 +81,26 @@ router.put("/api/events/:id", async (req, res) => {
     console.error(error);
     res.status(500).send({ data: "Internal Server Error." });
   }
+});
+
+router.delete("/api/events/:id", async (req, res) =>{
+  const eventId = req.params.id;
+
+  try {
+    const id = ObjectId.createFromHexString(eventId);
+    const event = await db.events.findOne({ _id: id });
+
+    if (!event) {
+      return res.status(404).send({ data: "Event not found." });
+    }
+
+    await db.events.deleteOne({ _id: id });
+    res.status(200).send({ data: "Event deleted successfully." });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ data: "Internal Server Error." });
+  }  
 });
 
 export default router;

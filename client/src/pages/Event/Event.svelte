@@ -22,6 +22,9 @@
       title: title,
       author: author,
       body: body,
+      articles: [],
+      general: {},
+      messages: []
     };
 
     try {
