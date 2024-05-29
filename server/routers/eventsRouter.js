@@ -9,7 +9,7 @@ router.get("/api/events/:id", async (req, res) => {
   const eventId = req.params.id;
   let id;
   try {
-    id = ObjectId.createFromHexString(eventId)
+    id = ObjectId.createFromHexString(eventId);
   } catch (error) {
     console.error(error);
   }
@@ -71,19 +71,18 @@ router.put("/api/events/:id", async (req, res) => {
     if (!event) {
       return res.status(404).send({ data: "Event not found." });
     }
-    
+
     delete updatedEvent._id;
 
     await db.events.updateOne({ _id: id }, { $set: updatedEvent });
     res.status(200).send({ data: "Event updated successfully." });
-
   } catch (error) {
     console.error(error);
     res.status(500).send({ data: "Internal Server Error." });
   }
 });
 
-router.delete("/api/events/:id", async (req, res) =>{
+router.delete("/api/events/:id", async (req, res) => {
   const eventId = req.params.id;
 
   try {
@@ -96,11 +95,10 @@ router.delete("/api/events/:id", async (req, res) =>{
 
     await db.events.deleteOne({ _id: id });
     res.status(200).send({ data: "Event deleted successfully." });
-
   } catch (error) {
     console.error(error);
     res.status(500).send({ data: "Internal Server Error." });
-  }  
+  }
 });
 
 export default router;

@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon app.js",
-    "resetdatabase": "node ./database/connection.js delete",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "resetdatabase": "node ./database/developerDatabase.js delete",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "node app.js"
   },
   "keywords": [],
   "author": "",

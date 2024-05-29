@@ -2,25 +2,25 @@
   import { Link } from "svelte-navigator";
   import { eventId, gameTitle, user, BASE_URL } from "../stores/generalStore.js";
   import { fetchDelete } from "../../util/api.js";
-  import toast from 'svelte-french-toast';
+  import toast from "svelte-french-toast";
 
   export let game;
 
-  function gameStore(){
+  function gameStore() {
     gameTitle.set(game.name);
     eventId.set(null);
-  };
+  }
 
-  async function deleteGame(){
+  async function deleteGame() {
     const currentGame = game?.name;
-    try{
+    try {
       await fetchDelete($BASE_URL + `/game/${currentGame}`);
       toast.success("Game succesfully deleted.", {
-            position: "bottom-center"
+        position: "bottom-center",
       });
-    } catch(error) {
+    } catch (error) {
       toast.error("Error deleting game.", {
-            position: "bottom-center"
+        position: "bottom-center",
       });
     }
   }
@@ -34,7 +34,7 @@
       <p class="card-text">{game?.description}</p>
       <div class="d-flex flex-row">
         {#if $user === "admin"}
-        <button class="btn btn-primary m-2" on:click={deleteGame}>Delete event</button>
+          <button class="btn btn-primary m-2" on:click={deleteGame}>Delete event</button>
         {/if}
         <Link to={`/events`} on:click={gameStore} class="btn btn-primary m-2">See events</Link>
       </div>

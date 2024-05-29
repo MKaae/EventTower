@@ -1,11 +1,11 @@
 <script>
   import { onMount } from "svelte";
+  import toast, { Toaster } from "svelte-french-toast";
+  import { gameTitle } from "../../stores/generalStore";
   import { fetchGet, fetchPost } from "../../../util/api";
   import EventCard from "../../components/EventCard.svelte";
-  import EventCardAdmin from "../../components/EventCardAdmin.svelte";
-  import { gameTitle } from "../../stores/generalStore";
-  import toast, {Toaster} from 'svelte-french-toast';
   import { BASE_URL, user } from "../../stores/generalStore.js";
+  import EventCardAdmin from "../../components/EventCardAdmin.svelte";
 
   const game = $gameTitle;
 
@@ -14,7 +14,7 @@
   $: eventsList;
 
   onMount(async () => {
-    eventsList = await fetchGet($BASE_URL +`/game/${game}`);
+    eventsList = await fetchGet($BASE_URL + `/game/${game}`);
   });
 
   async function handleNewEvent(imageURL, game, name, description) {
@@ -28,14 +28,13 @@
 
       await fetchPost($BASE_URL + "/events", newEvent);
 
-      toast.success("Event succesfully created.", {
-            position: "bottom-center"
-      });
-      
       eventsList = await fetchGet($BASE_URL + `/game/${game}`);
+      toast.success("Event succesfully created.", {
+        position: "bottom-center",
+      });
     } catch (error) {
       toast.error("Error creating event.", {
-            position: "bottom-center"
+        position: "bottom-center",
       });
       console.error(error);
     }
@@ -58,5 +57,5 @@
       <EventCard {event} />
     {/each}
   </div>
-  <Toaster/>
+  <Toaster />
 </div>

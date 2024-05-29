@@ -1,7 +1,6 @@
 import "dotenv/config";
 import express from "express";
 
-
 const app = express();
 
 app.use(express.json());
@@ -11,7 +10,7 @@ const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }
+  cookie: { secure: false },
 });
 
 app.use(sessionMiddleware);
@@ -57,7 +56,7 @@ import chatRouter from "./routers/chatRouter.js";
 app.use(chatRouter);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve('../client/dist/index.html'))
+  res.sendFile(path.resolve("../client/dist/index.html"));
 });
 
 const PORT = process.env.PORT ?? 8080;

@@ -2,25 +2,25 @@
   import { Link } from "svelte-navigator";
   import { eventName, eventId, user, BASE_URL } from "../stores/generalStore.js";
   import { fetchDelete } from "../../util/api.js";
-  import toast from 'svelte-french-toast';
+  import toast from "svelte-french-toast";
 
   export let event;
 
-  function setEventName(){
+  function setEventName() {
     eventName.set(event.name);
     eventId.set(event._id);
   }
 
-  async function deleteEvent(){
+  async function deleteEvent() {
     const eventIdForCard = event?._id;
-    try{
+    try {
       await fetchDelete($BASE_URL + `/events/${eventIdForCard}`);
       toast.success("Event succesfully deleted.", {
-            position: "bottom-center"
+        position: "bottom-center",
       });
     } catch (error) {
       toast.error("Error deleting event.", {
-            position: "bottom-center"
+        position: "bottom-center",
       });
     }
   }
@@ -34,7 +34,7 @@
       <p class="card-text">{event?.description}</p>
       <div class="d-flex flex-row">
         {#if $user === "admin"}
-        <button class="btn btn-primary m-2" on:click={deleteEvent}>Delete event</button>
+          <button class="btn btn-primary m-2" on:click={deleteEvent}>Delete event</button>
         {/if}
         <Link to={`/events/news`} on:click={setEventName} class="btn btn-primary m-2">See event</Link>
       </div>

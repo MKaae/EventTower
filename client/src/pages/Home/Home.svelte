@@ -1,13 +1,12 @@
 <script>
   import { onMount } from "svelte";
+  import toast, { Toaster } from "svelte-french-toast";
   import GameCard from "../../components/GameCard.svelte";
   import { fetchGet, fetchPost } from "../../../util/api.js";
-  import GameCardAdmin from "../../components/GameCardAdmin.svelte";
-  import toast, {Toaster} from 'svelte-french-toast';
   import { user, BASE_URL } from "../../stores/generalStore.js";
+  import GameCardAdmin from "../../components/GameCardAdmin.svelte";
 
   let gamesList = [];
-
   $: gamesList;
 
   onMount(async () => {
@@ -22,14 +21,16 @@
         description: description,
       };
 
-      toast.success("Success creating new game.", {
-            position: "bottom-center"
-      });
-
       await fetchPost($BASE_URL + "/games", newGame);
+
+      gamesList = await fetchGet($BASE_URL + "/games");
+
+      toast.success("Success creating new game.", {
+        position: "bottom-center",
+      });
     } catch (error) {
       toast.error("Error creating new game.", {
-            position: "bottom-center"
+        position: "bottom-center",
       });
       console.error("Unable to save game", error);
     }
@@ -55,7 +56,12 @@
     strategies.
   </p>
 
-  <input bind:value={searchTerm} type="text" placeholder="Search..." class="border border-3 border-grey rounded shadow"/>
+  <input
+    bind:value={searchTerm}
+    type="text"
+    placeholder="Search..."
+    class="border border-3 border-grey rounded shadow"
+  />
 
   <div class="row gx-5 gy-5 mt-3">
     {#if $user === "admin"}
@@ -66,5 +72,5 @@
       <GameCard {game} />
     {/each}
   </div>
-  <Toaster/>
+  <Toaster />
 </div>

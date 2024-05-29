@@ -1,8 +1,8 @@
 <script>
-  import LeaderboardTable from "../../components/LeaderboardTable.svelte";
-  import { BASE_URL } from "../../stores/generalStore";
   import { onMount } from "svelte";
   import { fetchGet } from "../../../util/api";
+  import { BASE_URL } from "../../stores/generalStore";
+  import LeaderboardTable from "../../components/LeaderboardTable.svelte";
 
   let leaderboardList = [];
 
