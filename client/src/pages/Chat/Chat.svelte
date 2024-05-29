@@ -2,10 +2,7 @@
   import io from "socket.io-client";
   import { onMount } from "svelte";
   import { fetchGet } from "../../../util/api";
-  import { useParams } from "svelte-navigator";
-  import { user, eventId } from "../../stores/generalStore.js";
-
-    const params = useParams();
+  import { user, eventId, BASE_URL} from "../../stores/generalStore.js";
 
     const socket = io("localhost:8080");
     socket.on("server-sends-message", (data) => {
@@ -25,7 +22,7 @@
 
     onMount(async () => {
         const currentEventId = $eventId;
-        const messagesFromDb = await fetchGet(`http://localhost:8080/api/chat/${currentEventId}`);
+        const messagesFromDb = await fetchGet($BASE_URL + `/chat/${currentEventId}`);
         if(messagesFromDb){
             messages = messagesFromDb;
         }

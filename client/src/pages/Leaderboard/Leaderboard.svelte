@@ -1,13 +1,13 @@
 <script>
   import LeaderboardTable from "../../components/LeaderboardTable.svelte";
-
+  import { BASE_URL } from "../../stores/generalStore";
   import { onMount } from "svelte";
   import { fetchGet } from "../../../util/api";
 
   let leaderboardList = [];
 
   onMount(async () => {
-    leaderboardList = await fetchGet("http://localhost:8080/api/leaderboard");
+    leaderboardList = await fetchGet($BASE_URL + "/leaderboard");
   });
 </script>
 

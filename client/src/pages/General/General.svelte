@@ -1,10 +1,7 @@
 <script>
   import { onMount } from "svelte";
-  import { useParams } from "svelte-navigator";
   import { fetchGet, fetchPut } from "../../../util/api";
-  import { user, eventId } from "../../stores/generalStore.js";
-
-  const params = useParams();
+  import { user, eventId, BASE_URL } from "../../stores/generalStore.js";
 
   let event = {};
   let generalBody;
@@ -13,7 +10,7 @@
 
   onMount(async () => {
     const currentEventId = $eventId;
-    event = await fetchGet(`http://localhost:8080/api/events/${currentEventId}`);
+    event = await fetchGet($BASE_URL + `/events/${currentEventId}`);
     generalBody = event.general.body;
     newGeneralBody = generalBody;
   });
@@ -27,7 +24,7 @@
     generalBody = newGeneralBody;
     try {
       const currentEventId = $eventId;
-      await fetchPut(`http://localhost:8080/api/events/${currentEventId}`, {
+      await fetchPut($BASE_URL + `/events/${currentEventId}`, {
         ...event,
         general: {
           ...event.general,

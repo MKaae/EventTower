@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { ObjectId } from "mongodb";
-import db from "../database/connection.js"
-import { requireAuth } from "./authMiddleware.js"
 const router = Router();
+
+import { ObjectId } from "mongodb";
+
+import db from "../database/connection.js"
+
+import { requireAuth } from "./authMiddleware.js"
 
 router.get("/api/chat/:id", requireAuth, async (req, res) => {
 

@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { fetchGet } from "../../../util/api";
   import { Bar } from "svelte-chartjs";
+  import { BASE_URL } from "../../stores/generalStore";
   import {
     Chart,
     Title,
@@ -24,7 +25,7 @@
   let chartData = null;
 
   onMount(async () => {
-    const liveHeights = await fetchGet("http://localhost:8080/api/liveheight");
+    const liveHeights = await fetchGet($BASE_URL + "/liveheight");
     if(liveHeights){
         chartData = setupData(liveHeights);
     }
@@ -32,7 +33,7 @@
 
   let overview = null;
   onMount(async () => {
-    const data = await fetchGet("http://localhost:8080/api/overview");
+    const data = await fetchGet($BASE_URL + "/overview");
     overview = [
         { name: "falls_raw", title: "Falls Raw", value: data.falls_raw },
         { name: "floors_fallen", title: "Floors Fallen", value: data.floors_fallen },
@@ -48,7 +49,7 @@
 
   let donations = null;
   onMount(async () => {
-    donations = await fetchGet("http://localhost:8080/api/donations");
+    donations = await fetchGet($BASE_URL + "/donations");
   });
 
   function setupData(data) {

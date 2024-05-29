@@ -15,7 +15,7 @@
       alt="..."
     />
     <div class="card-body d-flex flex-column justify-content-between">
-      <h5 class="card-title">Create new game</h5>
+      <h5 class="card-title">Create new Event</h5>
       <p class="card-text">
         This placeholder card shows where your new event will appear. Click "Create a New Event" get started.
       </p>
@@ -53,7 +53,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button
-          on:click={() => onNewGame(imageURL, name, description)}
+          on:click={() => onNewGame(imageURL, game, name, description)}
           type="button"
           class="btn btn-primary"
           data-bs-dismiss="modal">Create event</button

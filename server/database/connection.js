@@ -21,12 +21,9 @@ if (isDeleteMode) {
       const dummyUsers = [
         { username: "admin", email: "admin@admin.com", password: "$2b$14$wpJOv5pfnPOiidVLUptieeYpMm99l01mrGpEqPEmNT4v1urYF8I0i", role:"admin" },
         { username: "user", email: "user@user.com", password: "$2b$14$wpJOv5pfnPOiidVLUptieeYpMm99l01mrGpEqPEmNT4v1urYF8I0i", role:"user" },
-        { username: "AliceJohnson", email: "alice.johnson@example.com", password: "$2b$14$wpJOv5pfnPOiidVLUptieeYpMm99l01mrGpEqPEmNT4v1urYF8I0i", role:"user" },
-        { username: "SteffenAndersen", email: "steffen.andersen@example.com", password: "$2b$14$wpJOv5pfnPOiidVLUptieeYpMm99l01mrGpEqPEmNT4v1urYF8I0i", role:"user" },
       ];
 
-      const result = await usersCollection.insertMany(dummyUsers);
-      console.log(`${result.insertedCount} new dummy users inserted`);
+      await usersCollection.insertMany(dummyUsers);
 
       /* Add games to development database */
       const gamesCollection = db.collection("games");
@@ -52,8 +49,7 @@ if (isDeleteMode) {
             "Some quick example text to build on the card title and make up the bulk of the card's content.",
         },
       ];
-      const gamesResult = await gamesCollection.insertMany(dummyGames);
-      console.log(`${gamesResult.insertedCount} new dummy games inserted`);
+      await gamesCollection.insertMany(dummyGames);
 
       /* Add events to development database */
       const eventsCollection = db.collection("events");
@@ -200,8 +196,7 @@ if (isDeleteMode) {
 
       ];
 
-      const eventsResult = await eventsCollection.insertMany(dummyEvents);
-      console.log(`${eventsResult.insertedCount} new dummy events inserted`);
+      await eventsCollection.insertMany(dummyEvents);
     } catch (error) {
       console.error("An error occurred while resetting database:", error);
     } finally {

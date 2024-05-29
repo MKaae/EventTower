@@ -13,7 +13,7 @@
   import Stats from "./pages/Stats/Stats.svelte";
   // @ts-ignore
   import { Router, Link, Route } from "svelte-navigator";
-  import { user, eventName, eventId} from "../src/stores/generalStore.js";
+  import { user, eventName, eventId, BASE_URL} from "../src/stores/generalStore.js";
   import { fetchGet } from "../util/api";
   import toast, {Toaster} from 'svelte-french-toast';
 
@@ -21,7 +21,7 @@
 
   const logout = async () => {
       try{
-        await fetchGet("http://localhost:8080/api/logout");
+        await fetchGet($BASE_URL + "/logout");
       } catch (error) {
         console.error(error);
       }
@@ -79,7 +79,7 @@
             Events
           </Link>
           {#if $eventId !== null}
-          <Link to={`/events`} class=" mt-3 nav-link active">
+          <Link to={`/events/news`} class=" mt-3 nav-link active">
               <svg class="bi pe-none me-2" width="16" height="16" viewBox="0 0 18 18">
                 <path d="M18.175,4.142H1.951C1.703,4.142,1.5,4.344,1.5,4.592v10.816c0,0.247,0.203,0.45,0.451,0.45h16.224c0.247,0,0.45-0.203,0.45-0.45V4.592C18.625,4.344,18.422,4.142,18.175,4.142 M4.655,14.957H2.401v-1.803h2.253V14.957zM4.655,12.254H2.401v-1.803h2.253V12.254z M4.655,9.549H2.401V7.747h2.253V9.549z M4.655,6.846H2.401V5.043h2.253V6.846zM14.569,14.957H5.556V5.043h9.013V14.957z M17.724,14.957h-2.253v-1.803h2.253V14.957z M17.724,12.254h-2.253v-1.803h2.253V12.254zM17.724,9.549h-2.253V7.747h2.253V9.549z M17.724,6.846h-2.253V5.043h2.253V6.846z" fill="currentColor" />
               </svg>
@@ -147,15 +147,15 @@
       <Route path="/auth">        
           <Authenticate />
       </Route>
-      <Route path="/events/:id">
+      <PrivateRoute path="/events/news">
         <Event />
-      </Route>
-      <Route path="/events/:id/chat">
+      </PrivateRoute>
+      <Route path="/events/chat">
         <Chat />
       </Route>
-      <Route path="/events/:id/general">
+      <PrivateRoute path="/events/general">
         <General />
-      </Route>
+      </PrivateRoute>
       <Route path="/leaderboard">
         <Leaderboard />
       </Route>
