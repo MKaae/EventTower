@@ -36,6 +36,25 @@ router.post("/api/games", async (req, res) => {
   }
 });
 
+router.delete("/api/game/:id", async (req, res) =>{
+  const gameName = req.params.id;
+
+  try {
+    const foundGame = await db.games.findOne({ name: gameName });
+
+    if (!foundGame) {
+      return res.status(404).send({ data: "Event not found." });
+    }
+
+    await db.games.deleteOne({ name: gameName });
+    res.status(200).send({ data: "Game deleted successfully." });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ data: "Internal Server Error." });
+  }  
+});
+
 export default router;
 
 
