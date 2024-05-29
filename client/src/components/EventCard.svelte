@@ -2,7 +2,7 @@
   import { Link } from "svelte-navigator";
   import { eventName, eventId, user, BASE_URL } from "../stores/generalStore.js";
   import { fetchDelete } from "../../util/api.js";
-  import toast, {Toaster} from 'svelte-french-toast';
+  import toast from 'svelte-french-toast';
 
   export let event;
 
@@ -15,11 +15,11 @@
     const eventIdForCard = event?._id;
     try{
       await fetchDelete($BASE_URL + `/events/${eventIdForCard}`);
-      toast.success("Article succesfully created.", {
+      toast.success("Event succesfully deleted.", {
             position: "bottom-center"
       });
     } catch (error) {
-      toast.error("Error creating Article.", {
+      toast.error("Error deleting event.", {
             position: "bottom-center"
       });
     }
@@ -41,4 +41,3 @@
     </div>
   </div>
 </div>
-<Toaster />
