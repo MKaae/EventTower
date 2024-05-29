@@ -1,10 +1,9 @@
-import db from "../database/connection.js";
-import Router from "express";
+import { Router } from "express";
 const router = Router();
 
-import { hashPw, isSame } from "./../util/passwordUtil.js";
-
 import { requireAuth } from "./authMiddleware.js";
+
+import db from "../database/connection.js";
 
 router.get("/api/logout", requireAuth, (req, res) => {
     req.session.destroy((error) => {
@@ -16,6 +15,8 @@ router.get("/api/logout", requireAuth, (req, res) => {
         }
     });
 });
+
+import { hashPw, isSame } from "./../util/passwordUtil.js";
 
 import { sendEmail } from "../emailService/emailService.js";
 
@@ -30,7 +31,7 @@ router.post("/api/signup", async (req, res) => {
     } catch (error ){
         console.log(error);
     }
-
+    
     if(checkEmailUnique){
         return res.send({ data: "Email already exists"});
     }

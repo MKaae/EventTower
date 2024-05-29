@@ -4,14 +4,14 @@
   import { fetchGet, fetchPost } from "../../../util/api.js";
   import GameCardAdmin from "../../components/GameCardAdmin.svelte";
   import toast, {Toaster} from 'svelte-french-toast';
-  import { user } from "../../stores/generalStore.js";
+  import { user, BASE_URL } from "../../stores/generalStore.js";
 
   let gamesList = [];
 
   $: gamesList;
 
   onMount(async () => {
-    gamesList = await fetchGet("http://localhost:8080/api/games");
+    gamesList = await fetchGet($BASE_URL + "/games");
   });
 
   async function handleNewGame(imageURL, name, description) {
@@ -26,7 +26,7 @@
             position: "bottom-center"
       });
 
-      await fetchPost("http://localhost:8080/api/games", newGame);
+      await fetchPost($BASE_URL + "/games", newGame);
     } catch (error) {
       toast.error("Error creating new game.", {
             position: "bottom-center"

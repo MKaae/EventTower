@@ -1,7 +1,7 @@
 import Router from "express";
-import { ObjectId } from "bson";
-
 const router = Router();
+
+import { ObjectId } from "mongodb";
 
 import db from "../database/connection.js";
 
@@ -9,7 +9,7 @@ router.get("/api/events/:id", async (req, res) => {
   const eventId = req.params.id;
   let id;
   try {
-    id = new ObjectId(eventId);
+    id = ObjectId.createFromHexString(eventId)
   } catch (error) {
     console.error(error);
   }
@@ -33,7 +33,7 @@ router.post("/api/events", async (req, res) => {
   newEvent.articles = [];
   newEvent.general = {};
   newEvent.messages = [];
-
+  console.log(newEvent);
   try {
     db.events.insertOne(newEvent);
     res.send({ data: "Event created successfully" });
