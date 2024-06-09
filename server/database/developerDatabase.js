@@ -198,8 +198,42 @@ if (isDeleteMode) {
             </p>`,
           },
           messages: [
-            { user: "Mr.King", message: "Damn man, our buy Wirtual is killing it!" },
-            { user: "Mr. Prince", message: "Oh yees" },
+            { user: "Mr.King", message: "Did you see the latest run in DeepDip 2? Wirtual is dominating!" },
+            { user: "Mr. Prince", message: "Yeah, he's really pushing the limits. Unbelievable skills!" },
+            {
+              user: "GamerQueen",
+              message: "His control on those sharp turns is next-level. This is intense!",
+            },
+            {
+              user: "Mr.King",
+              message: "I think he might actually break the record. His consistency is unreal.",
+            },
+            {
+              user: "Mr. Prince",
+              message: "No doubt, but don't count out Riolu. He's been super consistent too.",
+            },
+            {
+              user: "GamerQueen",
+              message: "Riolu's precision is amazing. It's going to be a close race for sure.",
+            },
+            {
+              user: "Mr.King",
+              message:
+                "DeepDip 2 has some insane sections. Who do you think will handle the tricky parts better?",
+            },
+            {
+              user: "Mr. Prince",
+              message:
+                "Wirtual seems to have a slight edge in those tricky spots, but Riolu's overall speed is impressive.",
+            },
+            {
+              user: "GamerQueen",
+              message: "And don't forget Carl Jr. He's been practicing hard and could surprise us all.",
+            },
+            {
+              user: "Mr.King",
+              message: "True, it's still anyone's game. This is shaping up to be an epic showdown!",
+            },
           ],
         },
       ];
