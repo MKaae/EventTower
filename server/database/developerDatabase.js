@@ -73,19 +73,20 @@ if (isDeleteMode) {
           description: "Deep Dip 2 is an ongoing event in trackmania to climb a tower.",
           articles: [
             {
-              title: "Trackmania World Cup Announced for August",
+              title: "Bren Reaches the Top: Number 1 in Deep Dip 2",
               author: "Steffen",
-              body: "The annual Trackmania World Cup has been officially announced for August this year. Top players from around the globe will compete in a series of intense races, showcasing their skills and strategies. The event promises to bring thrilling moments and exciting competitions for all Trackmania fans.",
+              body: "In a thrilling turn of events, Bren has emerged as the number 1 player in the Deep Dip 2 competition. Known for his exceptional skills and strategic gameplay, Bren managed to outpace the competition and secure the top spot on the leaderboard. His achievement is a testament to his dedication and expertise in Trackmania. Fans and fellow competitors alike have been celebrating his victory, acknowledging the hard work and precision that went into his performances. Bren's success adds an exciting highlight to the Deep Dip 2 event, inspiring others to aim for greatness.",
+            },
+
+            {
+              title: "Deep Dip 2: Over One Month of Non-Stop Action",
+              author: "Steffen",
+              body: "The Deep Dip 2 event in Trackmania is set to run for over a month, providing an extended period of competition and excitement. This marathon event offers players ample time to perfect their strategies and improve their times on the complex tracks. With daily challenges and evolving leaderboards, participants are encouraged to stay engaged and keep pushing their limits. The extended duration also allows for a more dynamic and competitive atmosphere as players from different time zones and skill levels compete for the top positions.",
             },
             {
-              title: "New Trackmania Update Introduces Customizable Skins",
+              title: "Deep Dip 2 Event Launches with a Bang",
               author: "Steffen",
-              body: "Trackmania developers have rolled out a new update that allows players to create and customize their own car skins. This highly anticipated feature lets players express their creativity and stand out on the tracks. The update also includes several bug fixes and performance improvements.",
-            },
-            {
-              title: "Trackmania Community Hosts Charity Race Event",
-              author: "Steffen",
-              body: "The Trackmania community is coming together for a charity race event to raise funds for local children's hospitals. The event will feature popular Trackmania streamers and content creators, who will race live while encouraging viewers to donate. All proceeds from the event will go towards supporting medical care for children in need.",
+              body: "The highly anticipated Deep Dip 2 event in Trackmania has officially launched, drawing in top players and fans from around the world. The event features a series of challenging tracks designed to test the limits of even the most skilled racers. With new obstacles and twists, Deep Dip 2 promises to deliver an exhilarating experience for all participants. The opening day saw a surge of activity as players rushed to start their runs, aiming for the top spots on the leaderboard.",
             },
           ],
           general: {
