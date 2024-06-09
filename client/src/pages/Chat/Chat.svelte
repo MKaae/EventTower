@@ -11,7 +11,7 @@
 
   let message;
   function submitMessage() {
-    socket.emit("client-sends-message", { message: message, eventId: eventId });
+    socket.emit("client-sends-message", { message: message, eventId: $eventId });
     message = "";
   }
 
